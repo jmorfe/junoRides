@@ -1,0 +1,70 @@
+{
+  "project_info": {
+    "project_number": "747225201230",
+    "project_id": "junoride-order",
+    "storage_bucket": "junoride-order.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:747225201230:android:9e4049af401f05c1b4e11f",
+        "android_client_info": {
+          "package_name": "com.junoRide.royoorder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "747225201230-bajldt5aeip718qovl5pj33dsifk77pk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.junoRide.royoorder",
+            "certificate_hash": "6e35fcb20bda370ed0025e8c1df6109a03d09b6e"
+          }
+        },
+        {
+          "client_id": "747225201230-ceg6cgta04up16s6mbft540c1urm4dd3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.junoRide.royoorder",
+            "certificate_hash": "a88b766ebe08c535516406fab3741781973c03ad"
+          }
+        },
+        {
+          "client_id": "747225201230-o2lthc8482tpu3t39tgo6km95budms8u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.junoRide.royoorder",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "747225201230-vl3p1jh1919noc77n5n344am3qovp6o6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUtxCqe6MSYzXHhz2C07W5kiMFOd2zySM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "747225201230-vl3p1jh1919noc77n5n344am3qovp6o6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "747225201230-n5forj79j7n138agk1ov39gmjd4fnf5m.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.junoRide.royoorder"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

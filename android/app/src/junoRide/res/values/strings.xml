@@ -1,0 +1,8 @@
+<resources>
+    <!-- <string name="app_name">Royo Orders 2.0</string> -->
+    <string name="facebook_app_id">3153497911538144</string>
+    <string name="facebook_client_token">3153497911538144</string> 
+      <string name="fb_login_protocol_scheme">fb3153497911538144</string>
+       <string name="google_api_key_id">AIzaSyCCyANPBIc1rlt1gkcQJ05iWewN0SBdQqI</string>
+         <string moduleConfig="true" name="CodePushDeploymentKey">WsRJ-Eh8BRvGcHovFVk2LrfXD2nrmtjN7GUra</string>
+</resources>

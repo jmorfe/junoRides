@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>29455716557-3vhejr37vj1dg5jpaolltduclbhckfc5.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.29455716557-3vhejr37vj1dg5jpaolltduclbhckfc5</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>29455716557-ip1k687iqnff0r56slldu8u8fanvq6mm.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDrWSbnaRQzsybumodSP4rmkhbpSJxY4Ns</string>
+	<key>GCM_SENDER_ID</key>
+	<string>29455716557</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.rentzy.royoorder</string>
+	<key>PROJECT_ID</key>
+	<string>rentzy-78f44</string>
+	<key>STORAGE_BUCKET</key>
+	<string>rentzy-78f44.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:29455716557:ios:878e540bc460c22a1a5984</string>
+</dict>
+</plist>

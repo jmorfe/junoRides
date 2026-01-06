@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<attribution-config xmlns:android="http://schemas.android.com/apk/res/android">
+    <attribution-config-entry android:targetPackage="com.facebook.katana" />
+    <attribution-config-entry android:targetPackage="com.facebook.orca" />
+    <attribution-config-entry android:targetPackage="com.facebook.mlite" />
+    <attribution-config-entry android:targetPackage="com.facebook.messenger" />
+    <attribution-config-entry android:targetPackage="com.facebook.lite" />
+    <attribution-config-entry android:targetPackage="com.facebook.adsmanager" />
+    <attribution-config-entry android:targetPackage="com.facebook.adsmanager.lite" />
+    <attribution-config-entry android:targetPackage="com.facebook.business.manager" />
+    <attribution-config-entry android:targetPackage="com.facebook.work" />
+    <attribution-config-entry android:targetPackage="com.facebook.workchat" />
+    <attribution-config-entry android:targetPackage="com.facebook.workchat.lite" />
+    <attribution-config-entry android:targetPackage="com.facebook.workchat.debug" />
+    <attribution-config-entry android:targetPackage="com.facebook.workchat.internal" />
+    <attribution-config-entry android:targetPackage="com.facebook.workchat.test" />
+    <attribution-config-entry android:targetPackage="com.facebook.workchat.alpha" />
+    <attribution-config-entry android:targetPackage="com.facebook.workchat.beta" />
+    <attribution-config-entry android:targetPackage="com.facebook.workchat.dev" />
+    <attribution-config-entry android:targetPackage="com.facebook.workchat.canary" />
+</attribution-config>

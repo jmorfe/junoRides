@@ -1,4 +1,3 @@
-import produce from 'immer';
 import { getColorCodeWithOpactiyNumber } from '../../utils/helperFunctions';
 import types from '../types';
 
@@ -23,8 +22,8 @@ const initial_state = {
   isLocationSearched: false,
   lastBidInfo: null,
   countryFlag: 'IN',
-  priceType:'vendor',
-  isSubscription:true
+  priceType: 'vendor',
+  isSubscription: true
 };
 
 export default function (state = initial_state, action) {
@@ -129,7 +128,7 @@ export default function (state = initial_state, action) {
         priceType: data,
       };
     }
-    case types.SUBSCRIPTION_MODAL:{
+    case types.SUBSCRIPTION_MODAL: {
       const data = action.payload;
       return {
         ...state,

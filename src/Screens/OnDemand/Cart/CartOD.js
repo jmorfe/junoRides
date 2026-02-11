@@ -26,7 +26,7 @@ import ActionSheet from 'react-native-actionsheet';
 import { Calendar } from 'react-native-calendars';
 import DatePicker from 'react-native-date-picker';
 import DeviceInfo, { getBundleId } from 'react-native-device-info';
-import DocumentPicker from 'react-native-document-picker';
+import { pick } from '@react-native-documents/picker';
 import DropDownPicker from 'react-native-dropdown-picker';
 import FastImage from 'react-native-fast-image';
 import * as RNLocalize from 'react-native-localize';
@@ -425,9 +425,9 @@ function CartOD({ navigation, route }) {
           );
         } else {
           setScheduleType('now');
-          if(dineInType == 'on_demand' && !availableTimeSlots?.length){
+          if (dineInType == 'on_demand' && !availableTimeSlots?.length) {
             setLocaleSheduledOrderDate(moment(new Date()).format('lll'));
-          }else{
+          } else {
             setLocaleSheduledOrderDate(null);
           }
         }
@@ -3826,7 +3826,7 @@ function CartOD({ navigation, route }) {
           borderColor: selectedTimeSlots == item?.value ? themeColors?.primary_color : isDarkMode ? colors.whiteOpacity77 : colors.borderColor,
           backgroundColor: selectedTimeSlots == item?.value ? getColorCodeWithOpactiyNumber(themeColors?.primary_color.substring(1), 20) : 'transparent',
           paddingVertical: moderateScaleVertical(12),
-          paddingHorizontal:moderateScale(4),
+          paddingHorizontal: moderateScale(4),
           borderRadius: 8,
           borderWidth: 1,
           width: width / 3.5,
@@ -4174,8 +4174,10 @@ function CartOD({ navigation, route }) {
 
   const getDoc = async (value, index) => {
     try {
-      const res = await DocumentPicker.pick({
-        type: [DocumentPicker.types.pdf],
+      const res = await pick({
+        type: [
+          'application/pdf',
+        ],
       });
       let data = cloneDeep(kycPdfs);
       if (res) {
@@ -4848,413 +4850,413 @@ function CartOD({ navigation, route }) {
         onLayout={event => {
           setViewHeight(event.nativeEvent.layout.height);
         }}>
-          <SafeAreaView
+        <SafeAreaView
           style={{
             // flex: 1,
-            marginTop:'auto'
-            }}
-          >
-        <TouchableOpacity style={styles.closeButton} onPress={onCloseModal}>
-          <Image
+            marginTop: 'auto'
+          }}
+        >
+          <TouchableOpacity style={styles.closeButton} onPress={onCloseModal}>
+            <Image
+              style={
+                isDarkMode
+                  ? { tintColor: MyDarkTheme.colors.white }
+                  : { tintColor: colors.white }
+              }
+              source={imagePath.crossB}
+            />
+          </TouchableOpacity>
+          <View
             style={
               isDarkMode
-                ? { tintColor: MyDarkTheme.colors.white }
-                : { tintColor: colors.white }
-            }
-            source={imagePath.crossB}
-          />
-        </TouchableOpacity>
-        <View
-          style={
-            isDarkMode
-              ? [
-                styles.modalMainViewContainer,
-                { backgroundColor: MyDarkTheme.colors.lightDark },
-              ]
-              : styles.modalMainViewContainer
-          }>
-          <ScrollView
-            showsVerticalScrollIndicator={false}
-            bounces={false}
-            style={{
-              ...styles.modalMainViewContainer,
-              backgroundColor: isDarkMode
-                ? MyDarkTheme.colors.lightDark
-                : colors.white,
-            }}>
-            <TouchableOpacity
-              activeOpacity={0.7}
-              onPress={() => {
-                onCloseModal()
-                setModalVisible(true)
-              }}
+                ? [
+                  styles.modalMainViewContainer,
+                  { backgroundColor: MyDarkTheme.colors.lightDark },
+                ]
+                : styles.modalMainViewContainer
+            }>
+            <ScrollView
+              showsVerticalScrollIndicator={false}
+              bounces={false}
               style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                padding: moderateScaleVertical(20),
+                ...styles.modalMainViewContainer,
+                backgroundColor: isDarkMode
+                  ? MyDarkTheme.colors.lightDark
+                  : colors.white,
               }}>
-              <View
+              <TouchableOpacity
+                activeOpacity={0.7}
+                onPress={() => {
+                  onCloseModal()
+                  setModalVisible(true)
+                }}
                 style={{
                   flexDirection: 'row',
                   alignItems: 'center',
-                  flex: 1
+                  justifyContent: 'space-between',
+                  padding: moderateScaleVertical(20),
                 }}>
-                <Image style={{
-                  tintColor: isDarkMode ? colors.white : colors.black
-                }} source={imagePath.home} />
-                <Text
+                <View
                   style={{
-                    fontFamily: fontFamily.medium,
-                    fontSize: textScale(14),
-                    marginLeft: moderateScale(10),
-                    color: isDarkMode ? colors.white : colors.black
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    flex: 1
                   }}>
-                  {homeType(selectedAddressData)} -{' '}
-                </Text>
-                <Text
+                  <Image style={{
+                    tintColor: isDarkMode ? colors.white : colors.black
+                  }} source={imagePath.home} />
+                  <Text
+                    style={{
+                      fontFamily: fontFamily.medium,
+                      fontSize: textScale(14),
+                      marginLeft: moderateScale(10),
+                      color: isDarkMode ? colors.white : colors.black
+                    }}>
+                    {homeType(selectedAddressData)} -{' '}
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: textScale(14),
+                      fontFamily: fontFamily.regular,
+                      color: isDarkMode ? colors.white : colors.black,
+                      width: width / 1.8
+                    }}
+                    numberOfLines={1}
+                  >
+                    {!isEmpty(vendorAddress)
+                      ? vendorAddress?.address
+                      : selectedAddressData
+                        ? `${!!selectedAddressData?.house_number
+                          ? selectedAddressData?.house_number + ',  '
+                          : ''
+                        }${selectedAddressData?.address}`
+                        : strings.TAP_HERE_ADD_ADDRESS}
+                  </Text>
+                </View>
+
+                <Image
                   style={{
-                    fontSize: textScale(14),
-                    fontFamily: fontFamily.regular,
-                    color: isDarkMode ? colors.white : colors.black,
-                    width:width/1.8
+                    width: moderateScale(15),
+                    height: moderateScaleVertical(15),
+                    tintColor: isDarkMode ? colors.white : colors.black
                   }}
-                  numberOfLines={1}
-                >
-                  {!isEmpty(vendorAddress)
-                    ? vendorAddress?.address
-                    : selectedAddressData
-                      ? `${!!selectedAddressData?.house_number
-                        ? selectedAddressData?.house_number + ',  '
-                        : ''
-                      }${selectedAddressData?.address}`
-                      : strings.TAP_HERE_ADD_ADDRESS}
-                </Text>
-              </View>
+                  source={imagePath.ic_right_arrow}
+                />
 
-              <Image
-                style={{
-                  width: moderateScale(15),
-                  height: moderateScaleVertical(15),
-                  tintColor: isDarkMode ? colors.white : colors.black
-                }}
-                source={imagePath.ic_right_arrow}
-              />
+              </TouchableOpacity>
 
-            </TouchableOpacity>
-
-            {businessType == 'laundry' ? (
-              <View>
-                <Fragment>
-                  <ScrollView>
-                    {modalType == 'pickup' ? (
-                      <Calendar
-                        current={new Date()}
-                        minDate={
-                          !!minimumDelayVendorDate
-                            ? minimumDelayVendorDate
-                            : new Date()
-                        }
-                        onDayPress={laundrySlotSelection}
-                        markedDates={{
-                          [laundrySelectedPickupDate]: {
-                            selected: true,
-                            disableTouchEvent: true,
-                            selectedColor: themeColors.primary_color,
-                            selectedTextColor: colors.white,
-                          },
-                        }}
-                        theme={{
-                          arrowColor: themeColors.primary_color,
-                          textDayFontFamily: fontFamily.medium,
-                          textMonthFontFamily: fontFamily.medium,
-                          textDayHeaderFontFamily: fontFamily.bold,
-                        }}
-                      />
-                    ) : (
-                      <Calendar
-                        current={
-                          getBundleId() == appIds.masa
-                            ? dayAfterToday
-                            : new Date()
-                        }
-                        minDate={
-                          !!minimumDelayVendorDate
-                            ? minimumDelayVendorDate
-                            : getBundleId() == appIds.masa
-                              ? dayAfterToday
-                              : new Date()
-                        }
-                        onDayPress={laundrySlotSelection}
-                        markedDates={{
-                          [laundrySelectedDropOffDate]: {
-                            selected: true,
-                            disableTouchEvent: true,
-                            selectedColor: themeColors.primary_color,
-                            selectedTextColor: colors.white,
-                          },
-                        }}
-                        theme={{
-                          arrowColor: themeColors.primary_color,
-                          textDayFontFamily: fontFamily.medium,
-                          textMonthFontFamily: fontFamily.medium,
-                          textDayHeaderFontFamily: fontFamily.bold,
-                        }}
-                      />
-                    )}
-
-                    {modalType == 'pickup' ? (
-                      <View>
-                        <Text
-                          style={{
-                            // margin: moderateScale(24),
-                            fontFamily: fontFamily.medium,
-                            fontSize: textScale(12),
-                            // marginBottom: moderateScaleVertical(8),
-                          }}>
-                          {strings.TIME_SLOT}
-                        </Text>
-                        {isCheckSlotLoading ? (
-                          <Text
-                            style={{
-                              fontFamily: fontFamily.medium,
-                              color: colors.blackOpacity66,
-                              marginLeft: moderateScale(24),
-                            }}>
-                            {strings.LOADING}...
-                          </Text>
-                        ) : (
-                          <FlatList
-                            horizontal
-                            showsHorizontalScrollIndicator={false}
-                            data={laundryAvailablePickupSlot || []}
-                            renderItem={renderTimeSlots}
-                            keyExtractor={item => item?.value || ''}
-                            ItemSeparatorComponent={() => (
-                              <View style={{ marginRight: moderateScale(12) }} />
-                            )}
-                            ListHeaderComponent={() => (
-                              <View style={{ marginLeft: moderateScale(24) }} />
-                            )}
-                            ListFooterComponent={() => (
-                              <View style={{ marginRight: moderateScale(24) }} />
-                            )}
-                            ListEmptyComponent={() => (
-                              <View>
-                                <Text
-                                  style={{
-                                    fontFamily: fontFamily.medium,
-                                    color: colors.blackOpacity66,
-                                  }}>
-                                  {!laundrySelectedPickupDate
-                                    ? strings.PLEASE_SELECT_DATE
-                                    : strings.SLOTS_NOT_FOUND_FOR_DATE}
-                                </Text>
-                              </View>
-                            )}
-                          />
-                        )}
-                      </View>
-                    ) : (
-                      <View>
-                        <Text
-                          style={{
-                            marginHorizontal: moderateScale(24),
-                            fontFamily: fontFamily.medium,
-                            fontSize: textScale(12),
-                            marginBottom: moderateScaleVertical(8),
-                          }}>
-                          {strings.TIME_SLOT}
-                        </Text>
-                        {isCheckSlotLoading ? (
-                          <Text
-                            style={{
-                              fontFamily: fontFamily.medium,
-                              color: colors.blackOpacity66,
-                              marginLeft: moderateScale(24),
-                            }}>
-                            Loading...
-                          </Text>
-                        ) : (
-                          <FlatList
-                            horizontal
-                            showsHorizontalScrollIndicator={false}
-                            data={laundryAvailableDropOffSlot || []}
-                            renderItem={renderTimeSlots2}
-                            keyExtractor={item => item?.value || ''}
-                            ItemSeparatorComponent={() => (
-                              <View style={{ marginRight: moderateScale(12) }} />
-                            )}
-                            ListHeaderComponent={() => (
-                              <View style={{ marginLeft: moderateScale(24) }} />
-                            )}
-                            ListFooterComponent={() => (
-                              <View style={{ marginRight: moderateScale(24) }} />
-                            )}
-                            ListEmptyComponent={() => (
-                              <View>
-                                <Text
-                                  style={{
-                                    fontFamily: fontFamily.medium,
-                                    color: colors.blackOpacity66,
-                                  }}>
-                                  {!laundrySelectedDropOffDate
-                                    ? strings.PLEASE_SELECT_DATE
-                                    : strings.SLOTS_NOT_FOUND_FOR_DATE}
-                                </Text>
-                              </View>
-                            )}
-                          />
-                        )}
-                      </View>
-                    )}
-                  </ScrollView>
-                </Fragment>
-              </View>
-            ) : (
-              <View>
-                {(!!availableTimeSlots && availableTimeSlots?.length > 0) ||
-                  (!!cartData &&
-                    !!cartData?.slots &&
-                    !!cartData?.slots?.length > 0) ? (
+              {businessType == 'laundry' ? (
+                <View>
                   <Fragment>
                     <ScrollView>
-                      {console.log(
-                        minimumDelayVendorDate,
-                        '+++minimumDelayVendorDate',
-                        new Date(),
+                      {modalType == 'pickup' ? (
+                        <Calendar
+                          current={new Date()}
+                          minDate={
+                            !!minimumDelayVendorDate
+                              ? minimumDelayVendorDate
+                              : new Date()
+                          }
+                          onDayPress={laundrySlotSelection}
+                          markedDates={{
+                            [laundrySelectedPickupDate]: {
+                              selected: true,
+                              disableTouchEvent: true,
+                              selectedColor: themeColors.primary_color,
+                              selectedTextColor: colors.white,
+                            },
+                          }}
+                          theme={{
+                            arrowColor: themeColors.primary_color,
+                            textDayFontFamily: fontFamily.medium,
+                            textMonthFontFamily: fontFamily.medium,
+                            textDayHeaderFontFamily: fontFamily.bold,
+                          }}
+                        />
+                      ) : (
+                        <Calendar
+                          current={
+                            getBundleId() == appIds.masa
+                              ? dayAfterToday
+                              : new Date()
+                          }
+                          minDate={
+                            !!minimumDelayVendorDate
+                              ? minimumDelayVendorDate
+                              : getBundleId() == appIds.masa
+                                ? dayAfterToday
+                                : new Date()
+                          }
+                          onDayPress={laundrySlotSelection}
+                          markedDates={{
+                            [laundrySelectedDropOffDate]: {
+                              selected: true,
+                              disableTouchEvent: true,
+                              selectedColor: themeColors.primary_color,
+                              selectedTextColor: colors.white,
+                            },
+                          }}
+                          theme={{
+                            arrowColor: themeColors.primary_color,
+                            textDayFontFamily: fontFamily.medium,
+                            textMonthFontFamily: fontFamily.medium,
+                            textDayHeaderFontFamily: fontFamily.bold,
+                          }}
+                        />
                       )}
 
-                      <View>
-                        <Text
-                          style={{
-                            marginHorizontal: moderateScale(12),
-                            fontFamily: fontFamily.medium,
-                            fontSize: textScale(18),
-                            marginBottom: moderateScaleVertical(6),
-                            color: isDarkMode ? colors.white : colors.black
-                            // height:moderateScale(20)
-                          }}>
-                          {strings.SELECT_A_DATE_FOR_SERVICE}
-                        </Text>
-                        <Text
-                          style={{
-                            marginHorizontal: moderateScale(12),
-                            fontFamily: fontFamily.regular,
-                            fontSize: textScale(12),
-                            color: isDarkMode ? colors.whiteOpacity77 : colors.blackOpacity70
-                            // height:moderateScale(20)
-                          }}>
-                          {strings.YOUR_SERVICE_WILL_TAKE_APPROX}
-                        </Text>
-                        <View style={{ marginHorizontal: moderateScale(12), marginVertical: moderateScaleVertical(16) }}>
-                          {renderDates()}
-                        </View>
-                      </View>
-                      <View>
-                        <Text
-                          style={{
-                            marginHorizontal: moderateScale(12),
-                            fontFamily: fontFamily.medium,
-                            fontSize: textScale(18),
-                            marginBottom: moderateScaleVertical(16),
-                            color: isDarkMode ? colors.white : colors.black
-                            // height:moderateScale(20)
-                          }}>
-                          {strings.TIME_SLOT}
-                        </Text>
-                        {isCheckSlotLoading ? (
+                      {modalType == 'pickup' ? (
+                        <View>
                           <Text
                             style={{
+                              // margin: moderateScale(24),
                               fontFamily: fontFamily.medium,
-                              color: colors.blackOpacity66,
-                              marginLeft: moderateScale(24),
+                              fontSize: textScale(12),
+                              // marginBottom: moderateScaleVertical(8),
                             }}>
-                            Loading...
+                            {strings.TIME_SLOT}
                           </Text>
-                        ) : (
-                          <FlatList
-                            // horizontal
-                            numColumns={3}
-                            data={availableTimeSlots || []}
-                            renderItem={renderTimeSlots}
-                            keyExtractor={item => item?.value || ''}
-                            // showsHorizontalScrollIndicator={false}
-                            ItemSeparatorComponent={() => (
-                              <View style={{ marginBottom: moderateScale(18) }} />
-                            )}
-                            ListHeaderComponent={() => (
-                              <View style={{ marginLeft: moderateScale(24) }} />
-                            )}
-                            ListFooterComponent={() => (
-                              <View style={{ marginRight: moderateScale(24) }} />
-                            )}
-                            ListEmptyComponent={() => (
-                              <View>
-                                <Text
-                                  style={{
-                                    fontFamily: fontFamily.medium,
-                                    color: colors.redB,
-                                  }}>
-                                  {strings.SLOT_NOT_AVAILABAL}
-                                </Text>
-                              </View>
-                            )}
-                          />
-                        )}
-                      </View>
+                          {isCheckSlotLoading ? (
+                            <Text
+                              style={{
+                                fontFamily: fontFamily.medium,
+                                color: colors.blackOpacity66,
+                                marginLeft: moderateScale(24),
+                              }}>
+                              {strings.LOADING}...
+                            </Text>
+                          ) : (
+                            <FlatList
+                              horizontal
+                              showsHorizontalScrollIndicator={false}
+                              data={laundryAvailablePickupSlot || []}
+                              renderItem={renderTimeSlots}
+                              keyExtractor={item => item?.value || ''}
+                              ItemSeparatorComponent={() => (
+                                <View style={{ marginRight: moderateScale(12) }} />
+                              )}
+                              ListHeaderComponent={() => (
+                                <View style={{ marginLeft: moderateScale(24) }} />
+                              )}
+                              ListFooterComponent={() => (
+                                <View style={{ marginRight: moderateScale(24) }} />
+                              )}
+                              ListEmptyComponent={() => (
+                                <View>
+                                  <Text
+                                    style={{
+                                      fontFamily: fontFamily.medium,
+                                      color: colors.blackOpacity66,
+                                    }}>
+                                    {!laundrySelectedPickupDate
+                                      ? strings.PLEASE_SELECT_DATE
+                                      : strings.SLOTS_NOT_FOUND_FOR_DATE}
+                                  </Text>
+                                </View>
+                              )}
+                            />
+                          )}
+                        </View>
+                      ) : (
+                        <View>
+                          <Text
+                            style={{
+                              marginHorizontal: moderateScale(24),
+                              fontFamily: fontFamily.medium,
+                              fontSize: textScale(12),
+                              marginBottom: moderateScaleVertical(8),
+                            }}>
+                            {strings.TIME_SLOT}
+                          </Text>
+                          {isCheckSlotLoading ? (
+                            <Text
+                              style={{
+                                fontFamily: fontFamily.medium,
+                                color: colors.blackOpacity66,
+                                marginLeft: moderateScale(24),
+                              }}>
+                              Loading...
+                            </Text>
+                          ) : (
+                            <FlatList
+                              horizontal
+                              showsHorizontalScrollIndicator={false}
+                              data={laundryAvailableDropOffSlot || []}
+                              renderItem={renderTimeSlots2}
+                              keyExtractor={item => item?.value || ''}
+                              ItemSeparatorComponent={() => (
+                                <View style={{ marginRight: moderateScale(12) }} />
+                              )}
+                              ListHeaderComponent={() => (
+                                <View style={{ marginLeft: moderateScale(24) }} />
+                              )}
+                              ListFooterComponent={() => (
+                                <View style={{ marginRight: moderateScale(24) }} />
+                              )}
+                              ListEmptyComponent={() => (
+                                <View>
+                                  <Text
+                                    style={{
+                                      fontFamily: fontFamily.medium,
+                                      color: colors.blackOpacity66,
+                                    }}>
+                                    {!laundrySelectedDropOffDate
+                                      ? strings.PLEASE_SELECT_DATE
+                                      : strings.SLOTS_NOT_FOUND_FOR_DATE}
+                                  </Text>
+                                </View>
+                              )}
+                            />
+                          )}
+                        </View>
+                      )}
                     </ScrollView>
                   </Fragment>
-                ) : (
-                  <DatePicker
-                    locale={selectedLanguage}
-                    date={
-                      !!sheduledorderdate
-                        ? new Date(sheduledorderdate)
-                        : new Date()
-                    }
-                    style={{alignSelf:'center',marginBottom:moderateScaleVertical(12)}}
-                    textColor={isDarkMode ? colors.white : colors.blackB}
-                    mode="datetime"
-                    minimumDate={
-                      !!cartData?.delay_date
-                        ? new Date(cartData?.delay_date)
-                        : new Date()
-                    }
-                    // maximumDate={undefined}
-                    // style={styles.datetimePickerText}
-                    // onDateChange={setDate}
-                    onDateChange={value => onDateChange(value)}
-                  />
-                )}
+                </View>
+              ) : (
+                <View>
+                  {(!!availableTimeSlots && availableTimeSlots?.length > 0) ||
+                    (!!cartData &&
+                      !!cartData?.slots &&
+                      !!cartData?.slots?.length > 0) ? (
+                    <Fragment>
+                      <ScrollView>
+                        {console.log(
+                          minimumDelayVendorDate,
+                          '+++minimumDelayVendorDate',
+                          new Date(),
+                        )}
+
+                        <View>
+                          <Text
+                            style={{
+                              marginHorizontal: moderateScale(12),
+                              fontFamily: fontFamily.medium,
+                              fontSize: textScale(18),
+                              marginBottom: moderateScaleVertical(6),
+                              color: isDarkMode ? colors.white : colors.black
+                              // height:moderateScale(20)
+                            }}>
+                            {strings.SELECT_A_DATE_FOR_SERVICE}
+                          </Text>
+                          <Text
+                            style={{
+                              marginHorizontal: moderateScale(12),
+                              fontFamily: fontFamily.regular,
+                              fontSize: textScale(12),
+                              color: isDarkMode ? colors.whiteOpacity77 : colors.blackOpacity70
+                              // height:moderateScale(20)
+                            }}>
+                            {strings.YOUR_SERVICE_WILL_TAKE_APPROX}
+                          </Text>
+                          <View style={{ marginHorizontal: moderateScale(12), marginVertical: moderateScaleVertical(16) }}>
+                            {renderDates()}
+                          </View>
+                        </View>
+                        <View>
+                          <Text
+                            style={{
+                              marginHorizontal: moderateScale(12),
+                              fontFamily: fontFamily.medium,
+                              fontSize: textScale(18),
+                              marginBottom: moderateScaleVertical(16),
+                              color: isDarkMode ? colors.white : colors.black
+                              // height:moderateScale(20)
+                            }}>
+                            {strings.TIME_SLOT}
+                          </Text>
+                          {isCheckSlotLoading ? (
+                            <Text
+                              style={{
+                                fontFamily: fontFamily.medium,
+                                color: colors.blackOpacity66,
+                                marginLeft: moderateScale(24),
+                              }}>
+                              Loading...
+                            </Text>
+                          ) : (
+                            <FlatList
+                              // horizontal
+                              numColumns={3}
+                              data={availableTimeSlots || []}
+                              renderItem={renderTimeSlots}
+                              keyExtractor={item => item?.value || ''}
+                              // showsHorizontalScrollIndicator={false}
+                              ItemSeparatorComponent={() => (
+                                <View style={{ marginBottom: moderateScale(18) }} />
+                              )}
+                              ListHeaderComponent={() => (
+                                <View style={{ marginLeft: moderateScale(24) }} />
+                              )}
+                              ListFooterComponent={() => (
+                                <View style={{ marginRight: moderateScale(24) }} />
+                              )}
+                              ListEmptyComponent={() => (
+                                <View>
+                                  <Text
+                                    style={{
+                                      fontFamily: fontFamily.medium,
+                                      color: colors.redB,
+                                    }}>
+                                    {strings.SLOT_NOT_AVAILABAL}
+                                  </Text>
+                                </View>
+                              )}
+                            />
+                          )}
+                        </View>
+                      </ScrollView>
+                    </Fragment>
+                  ) : (
+                    <DatePicker
+                      locale={selectedLanguage}
+                      date={
+                        !!sheduledorderdate
+                          ? new Date(sheduledorderdate)
+                          : new Date()
+                      }
+                      style={{ alignSelf: 'center', marginBottom: moderateScaleVertical(12) }}
+                      textColor={isDarkMode ? colors.white : colors.blackB}
+                      mode="datetime"
+                      minimumDate={
+                        !!cartData?.delay_date
+                          ? new Date(cartData?.delay_date)
+                          : new Date()
+                      }
+                      // maximumDate={undefined}
+                      // style={styles.datetimePickerText}
+                      // onDateChange={setDate}
+                      onDateChange={value => onDateChange(value)}
+                    />
+                  )}
+                </View>
+              )}
+
+              <HorizontalLine lineStyle={{
+                marginVertical: moderateScaleVertical(8)
+              }} />
+              <View
+                style={{
+                  marginHorizontal: moderateScale(8),
+                }}>
+                <ButtonComponent
+
+                  // textStyle={styles.textStyle}
+                  containerStyle={{
+                    backgroundColor: isDarkMode ? colors.whiteOpacity22 : colors.black,
+                    borderRadius: moderateScale(8),
+                    marginBottom: moderateScale(70)
+                  }}
+                  onPress={selectOrderDate}
+                  marginBottom={moderateScaleVertical(30)}
+                  btnText={strings.DONE}
+                  textStyle={{
+                    textTransform: 'capitalize'
+                  }}
+                />
               </View>
-            )}
-
-            <HorizontalLine lineStyle={{
-              marginVertical: moderateScaleVertical(8)
-            }} />
-            <View
-              style={{
-                marginHorizontal: moderateScale(8),
-              }}>
-              <ButtonComponent
-
-                // textStyle={styles.textStyle}
-                containerStyle={{
-                  backgroundColor: isDarkMode ? colors.whiteOpacity22 : colors.black,
-                  borderRadius: moderateScale(8),
-                  marginBottom:moderateScale(70)
-                }}
-                onPress={selectOrderDate}
-                marginBottom={moderateScaleVertical(30)}
-                btnText={strings.DONE}
-                textStyle={{
-                  textTransform: 'capitalize'
-                }}
-              />
-            </View>
-          </ScrollView>
-        </View>
+            </ScrollView>
+          </View>
         </SafeAreaView>
       </Modal>
       {!!paymentModal ? (

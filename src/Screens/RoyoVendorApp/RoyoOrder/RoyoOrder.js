@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {
   FlatList,
   Image,
@@ -8,10 +8,9 @@ import {
   View,
 } from 'react-native';
 import Modal from 'react-native-modal';
-import SunmiPrinter from '@heasy/react-native-sunmi-printer'
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import Header from '../../../Components/Header';
-import {loaderOne} from '../../../Components/Loaders/AnimatedLoaderFiles';
+import { loaderOne } from '../../../Components/Loaders/AnimatedLoaderFiles';
 import MultiScreen from '../../../Components/MultiScreen';
 import * as RNLocalize from 'react-native-localize';
 import OrderCard from '../../../Components/OrderCard';
@@ -25,26 +24,26 @@ import {
   moderateScale,
   moderateScaleVertical,
 } from '../../../styles/responsiveSize';
-import {isSunmiPrinterConnected, showError} from '../../../utils/helperFunctions';
-import {getItem} from '../../../utils/utils';
+import { isSunmiPrinterConnected, showError } from '../../../utils/helperFunctions';
+import { getItem } from '../../../utils/utils';
 import stylesFunc from './styles';
-import _, {debounce} from 'lodash';
+import _, { debounce } from 'lodash';
 import strings from '../../../constants/lang';
 
 let dataLimit = 20;
 let vendorLimit = 50;
 
 const RoyoOrder = (props) => {
-  const {navigation, route} = props;
-  const {params} = route;
+  const { navigation, route } = props;
+  const { params } = route;
   const currentTheme = useSelector((state) => state.initBoot);
-  const {storeSelectedVendor} = useSelector((state) => state?.order);
-  const {appData, appStyle, currencies, languages} = useSelector(
+  const { storeSelectedVendor } = useSelector((state) => state?.order);
+  const { appData, appStyle, currencies, languages } = useSelector(
     (state) => state?.initBoot,
   );
-  const {themeColors, themeLayouts} = currentTheme;
+  const { themeColors, themeLayouts } = currentTheme;
   const fontFamily = appStyle?.fontSizeData;
-  const styles = stylesFunc({fontFamily, themeColors});
+  const styles = stylesFunc({ fontFamily, themeColors });
 
   const [availVendor, setAvailVendor] = useState([]);
   const [data, setData] = useState([]);
@@ -70,7 +69,7 @@ const RoyoOrder = (props) => {
     isVendorSelectModal,
   } = state;
 
-  const updateState = (data) => setState((state) => ({...state, ...data}));
+  const updateState = (data) => setState((state) => ({ ...state, ...data }));
 
   //reset pagination values
   useEffect(() => {
@@ -92,7 +91,7 @@ const RoyoOrder = (props) => {
   useEffect(() => {
     if (params) {
       console.log('focused order screen >>>> ', params);
-      updateState({activeIndex: params?.index});
+      updateState({ activeIndex: params?.index });
     }
   }, [params]);
 
@@ -108,7 +107,7 @@ const RoyoOrder = (props) => {
   const selectedOrder = (index) => {
     dataPage.current = 1;
     dataLoadMore.current = true;
-    updateState({activeIndex: index});
+    updateState({ activeIndex: index });
   };
 
   const orderType = (inx) => {
@@ -130,7 +129,7 @@ const RoyoOrder = (props) => {
         return type;
     }
   };
-  
+
   const getAllVendorOrder = async (isRefreshing = false) => {
     if (!isRefreshing) {
       updateState({ isLoadingB: true })
@@ -140,11 +139,11 @@ const RoyoOrder = (props) => {
     let query = `/${storeSelectedVendor?.id}?limit=${dataLimit}&page=${dataPage.current}&type=${type}`
     let headers = {
       code: appData?.profile?.code,
-      currency: currencies?.primary_currency?.id,   
+      currency: currencies?.primary_currency?.id,
       language: languages?.primary_language?.id,
       timezone: RNLocalize.getTimeZone(),
     }
-    console.log("sending query", query,headers)
+    console.log("sending query", query, headers)
     try {
       const res = await actions.allVendorOrders(query, headers)
       console.log("all vendor orders", res.data)
@@ -165,7 +164,7 @@ const RoyoOrder = (props) => {
     if (Platform.OS == 'android') {
       const res = await getItem('BleDevice');
       const sunmiPrinterAvail = await isSunmiPrinterConnected();
-      console.log(sunmiPrinterAvail,'sunmiPrinterAvailsunmiPrinterAvail')
+      console.log(sunmiPrinterAvail, 'sunmiPrinterAvailsunmiPrinterAvail')
       if (!!res || sunmiPrinterAvail) {
         updateState({
           isBleDevice: true,
@@ -214,19 +213,19 @@ const RoyoOrder = (props) => {
     });
     showError(error?.message || error?.error);
   };
-const removeItemfromData=(id)=>{
-     let newarray=[...data]
-     newarray =newarray.filter(item=>item.id!==id)
-     setData(newarray)
-    
-}
+  const removeItemfromData = (id) => {
+    let newarray = [...data]
+    newarray = newarray.filter(item => item.id !== id)
+    setData(newarray)
+
+  }
   const updateOrderStatus = (acceptRejectData, status) => {
     console.log(acceptRejectData, 'item');
     let data = {};
     data['order_id'] = acceptRejectData?.id;
     data['vendor_id'] = storeSelectedVendor?.id;
     data['order_status_option_id'] = status;
-    updateState({isLoadingB: true});
+    updateState({ isLoadingB: true });
     actions
       .updateOrderStatus(data, {
         code: appData?.profile?.code,
@@ -250,7 +249,7 @@ const removeItemfromData=(id)=>{
 
   //Pull to refresh
   const handleRefresh = () => {
-    updateState({isRefreshing: true});
+    updateState({ isRefreshing: true });
     dataPage.current = 1;
     vendorPage.current = 1;
     vendorLoadMore.current = true;
@@ -259,7 +258,7 @@ const removeItemfromData=(id)=>{
   };
 
   //pagination of data
-  const onEndReached = ({distanceFromEnd}) => {
+  const onEndReached = ({ distanceFromEnd }) => {
     if (dataLoadMore.current) {
       dataPage.current = dataPage.current + 1;
       getAllVendorOrder(true);
@@ -278,7 +277,7 @@ const removeItemfromData=(id)=>{
   };
 
   const onVendorSelect = (item) => {
-    updateState({isVendorSelectModal: false, pageNo: 1});
+    updateState({ isVendorSelectModal: false, pageNo: 1 });
     setTimeout(() => {
       actions.savedSelectedVendor(item);
     }, 500);
@@ -290,7 +289,7 @@ const removeItemfromData=(id)=>{
       selectedVendor: storeSelectedVendor,
     });
   };
-  const renderOrders = ({item, index}) => {
+  const renderOrders = ({ item, index }) => {
     return (
       <TouchableOpacity
         onPress={() => orderDetail(item)}
@@ -326,9 +325,9 @@ const removeItemfromData=(id)=>{
       isLoadingB={isLoadingB}
       source={loaderOne}>
       <Header
-        headerStyle={{marginVertical: moderateScaleVertical(16)}}
+        headerStyle={{ marginVertical: moderateScaleVertical(16) }}
         // centerTitle="Orders | Foodies hub  "
-        centerTitle={strings.ORDER +' | ' + storeSelectedVendor?.name || ''}
+        centerTitle={strings.ORDER + ' | ' + storeSelectedVendor?.name || ''}
         onPressCenterTitle={() => _reDirectToVendorList()}
         onPressImageAlongwithTitle={() => _reDirectToVendorList()}
         noLeftIcon
@@ -375,10 +374,10 @@ const removeItemfromData=(id)=>{
         style={{
           margin: 0,
         }}>
-        <View style={{flex: 1, backgroundColor: colors.white}}>
+        <View style={{ flex: 1, backgroundColor: colors.white }}>
           <SelectVendorListModal
             vendorList={availVendor}
-            onCloseModal={() => updateState({isVendorSelectModal: false})}
+            onCloseModal={() => updateState({ isVendorSelectModal: false })}
             onVendorSelect={onVendorSelect}
             selectedVendor={storeSelectedVendor}
             onEndReachedVendor={onEndReachedVendor}

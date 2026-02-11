@@ -20,7 +20,6 @@ import Header from '../../Components/Header';
 import ListItemHorizontal from '../../Components/ListItemHorizontalWithImage';
 import imagePath from '../../constants/imagePath';
 import strings from '../../constants/lang/index';
-import ZendeskChat from '../../library/react-native-zendesk-chat';
 import navigationStrings from '../../navigation/navigationStrings';
 import actions from '../../redux/actions';
 import colors from '../../styles/colors';
@@ -161,28 +160,28 @@ export default function Account3({ navigation }) {
   };
 
   // initalize Zendesk
-  useEffect(() => {
-    ZendeskChat.init(
-      `${preferences?.customer_support_key}`,
-      `${preferences?.customer_support_application_id}`,
-    );
-  }, [
-    preferences?.customer_support_application_id,
-    preferences?.customer_support_key,
-  ]);
+  // useEffect(() => {
+  //   // ZendeskChat.init(
+  //   //   `${preferences?.customer_support_key}`,
+  //   //   `${preferences?.customer_support_application_id}`,
+  //   // );
+  // }, [
+  //   preferences?.customer_support_application_id,
+  //   preferences?.customer_support_key,
+  // ]);
 
   const onStartSupportChat = () => {
-    ZendeskChat.setVisitorInfo({
-      name: userData?.name,
-      phone: userData?.phone_number ? userData?.phone_number : '',
-    });
-    ZendeskChat.startChat({
-      name: userData?.name,
-      phone: userData?.phone_number ? userData?.phone_number : '',
-      withChat: true,
-      color: '#000',
-      messagingOptions: { botName: `${DeviceInfo.getApplicationName()} Support` },
-    });
+    // ZendeskChat.setVisitorInfo({
+    //   name: userData?.name,
+    //   phone: userData?.phone_number ? userData?.phone_number : '',
+    // });
+    // ZendeskChat.startChat({
+    //   name: userData?.name,
+    //   phone: userData?.phone_number ? userData?.phone_number : '',
+    //   withChat: true,
+    //   color: '#000',
+    //   messagingOptions: { botName: `${DeviceInfo.getApplicationName()} Support` },
+    // });
   };
 
   const usernameFirstlater = !!userData?.name && userData?.name?.charAt(0);

@@ -2,7 +2,6 @@ import { View, Text, Image } from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
 
 
-import * as Progress from 'react-native-progress';
 
 import { useSelector } from 'react-redux';
 
@@ -17,11 +16,11 @@ import { tokenConverterPlusCurrencyNumberFormater } from '../../utils/commonFunc
 import { CountdownCircleTimer } from 'react-native-countdown-circle-timer'
 
 const BidAcceptRejectCard = ({
-   data=[],
-   bidExpiryDuration={} ,
-   _onDeclineBid=()=>{},
-   _onAcceptRideBid=()=>{}
-  }) => {
+  data = [],
+  bidExpiryDuration = {},
+  _onDeclineBid = () => { },
+  _onAcceptRideBid = () => { }
+}) => {
 
 
 
@@ -42,7 +41,7 @@ const BidAcceptRejectCard = ({
   } = appData?.profile?.preferences;
 
 
-//  const  allBidLocations = data?.tasks.replace(/'/g, '"') //replacing all ' with "
+  //  const  allBidLocations = data?.tasks.replace(/'/g, '"') //replacing all ' with "
 
   return (
     <View style={{
@@ -53,36 +52,36 @@ const BidAcceptRejectCard = ({
       borderRadius: moderateScale(15), overflow: 'hidden'
     }}>
       <View style={{
-         alignSelf: 'flex-end',
-          marginHorizontal: moderateScale(20),
-           marginTop: moderateScaleVertical(8)
-            }} >
-     <CountdownCircleTimer
-    isPlaying
-    duration={bidExpiryDuration}
-    colors={[themeColors?.primary_color]}
-    size={40}
-    strokeWidth={5}
-  >
-    {({ remainingTime }) => {
-      remainingTime ==0&&_onDeclineBid(data?.id)
-     return(
-      <Text>{remainingTime}</Text>
-     )
-      
-    }}
-  </CountdownCircleTimer>
+        alignSelf: 'flex-end',
+        marginHorizontal: moderateScale(20),
+        marginTop: moderateScaleVertical(8)
+      }} >
+        <CountdownCircleTimer
+          isPlaying
+          duration={bidExpiryDuration}
+          colors={[themeColors?.primary_color]}
+          size={40}
+          strokeWidth={5}
+        >
+          {({ remainingTime }) => {
+            remainingTime == 0 && _onDeclineBid(data?.id)
+            return (
+              <Text>{remainingTime}</Text>
+            )
+
+          }}
+        </CountdownCircleTimer>
 
       </View>
       <View style={{ marginHorizontal: moderateScale(10), flexDirection: 'row', alignItems: 'center', }}>
         <View>
-          <Image style={{ height: moderateScaleVertical(50), width: moderateScale(50), borderRadius: moderateScale(25) }} source={{ uri:'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlciUyMHByb2ZpbGV8ZW58MHx8MHx8&w=1000&q=80' }} />
+          <Image style={{ height: moderateScaleVertical(50), width: moderateScale(50), borderRadius: moderateScale(25) }} source={{ uri: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlciUyMHByb2ZpbGV8ZW58MHx8MHx8&w=1000&q=80' }} />
         </View>
 
         <View style={{ marginHorizontal: moderateScale(10), flexDirection: 'row', justifyContent: 'space-between' }}>
           <View style={{ width: '62%', }}>
             <Text style={{ fontSize: textScale(13), fontFamily: fontFamily.bold }}>{data?.driver_name}</Text>
-           
+
             {/* {data.map((item,index)=>{
               if(item?.task_type_id ==2){
                return(
@@ -96,18 +95,18 @@ const BidAcceptRejectCard = ({
               }
              
             })} */}
-             <View style={{flexDirection:'row',marginTop:moderateScaleVertical(4)}}>
-                  <Image source={imagePath.location1}/>
-                <Text numberOfLines={2} style={{marginLeft:moderateScale(5),fontFamily:fontFamily?.regular,color:colors.black}}>{data?.address}</Text>
-                </View>
+            <View style={{ flexDirection: 'row', marginTop: moderateScaleVertical(4) }}>
+              <Image source={imagePath.location1} />
+              <Text numberOfLines={2} style={{ marginLeft: moderateScale(5), fontFamily: fontFamily?.regular, color: colors.black }}>{data?.address}</Text>
+            </View>
           </View>
           <View>
             <Text style={{ fontSize: textScale(15), color: themeColors?.primary_color, fontFamily: fontFamily?.bold }}> {tokenConverterPlusCurrencyNumberFormater(
-                        Number(20),
-                        digit_after_decimal,
-                        additional_preferences,
-                        currencies?.primary_currency?.symbol
-                      )}</Text>
+              Number(20),
+              digit_after_decimal,
+              additional_preferences,
+              currencies?.primary_currency?.symbol
+            )}</Text>
             {/* <Text style={{ fontFamily: fontFamily?.bold }}>{data?.distance}</Text> */}
 
           </View>
@@ -123,7 +122,7 @@ const BidAcceptRejectCard = ({
             color: colors?.redB,
 
           }}
-          onPress={()=>_onDeclineBid(data?.id)}
+          onPress={() => _onDeclineBid(data?.id)}
           btnText={`Decline`}
           btnStyle={{ width: moderateScale(width / 2.5), borderWidth: moderateScale(1), borderColor: colors.redB }}
         />
@@ -134,7 +133,7 @@ const BidAcceptRejectCard = ({
             fontSize: textScale(13),
             color: colors.white,
           }}
-           onPress={()=>_onAcceptRideBid(data?.id)}
+          onPress={() => _onAcceptRideBid(data?.id)}
           btnText={`Accept`}
           btnStyle={{ width: moderateScale(width / 2.5) }}
         />

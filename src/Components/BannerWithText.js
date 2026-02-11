@@ -5,7 +5,6 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
-import { colors } from 'react-native-elements';
 import FastImage from 'react-native-fast-image';
 import { UIActivityIndicator } from 'react-native-indicators';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
@@ -18,6 +17,7 @@ import {
   width,
 } from '../styles/responsiveSize';
 import { getImageUrl } from '../utils/helperFunctions';
+import colors from '../styles/colors';
 
 const BannerWithText = ({
   imagestyle = {},
@@ -31,33 +31,33 @@ const BannerWithText = ({
   onSnapToItem,
   pagination = true,
   resizeMode = 'cover',
-  setActiveState = () => {},
-  onPress = () => {},
+  setActiveState = () => { },
+  onPress = () => { },
   childView = null,
   showLightbox = false,
   tagline = '',
 }) => {
-  const {themeColors, appStyle} = useSelector((state) => state?.initBoot);
+  const { themeColors, appStyle } = useSelector((state) => state?.initBoot);
 
   const [state, setState] = useState({
     slider1ActiveSlide: 0,
     showLightboxView: false,
     imageLoader: true,
   });
-  const updateState = (data) => setState((state) => ({...state, ...data}));
-  const {slider1ActiveSlide, showLightboxView} = state;
+  const updateState = (data) => setState((state) => ({ ...state, ...data }));
+  const { slider1ActiveSlide, showLightboxView } = state;
   const setSnapState = (index) => {
-    updateState({slider1ActiveSlide: index});
+    updateState({ slider1ActiveSlide: index });
     setActiveState(index);
   };
   const fontFamily = appStyle?.fontSizeData;
-  const bannerDataImages = ({item, index}) => {
+  const bannerDataImages = ({ item, index }) => {
     const imageUrl = item?.image?.path
       ? getImageUrl(
-          item.image_mobile.path.image_fit,
-          item.image.path.image_path,
-          '1000/1000',
-        )
+        item.image_mobile.path.image_fit,
+        item.image.path.image_path,
+        '1000/1000',
+      )
       : getImageUrl(item.image.image_fit, item.image.image_path, '1000/1000');
 
     return (
@@ -71,9 +71,9 @@ const BannerWithText = ({
             renderContent={() => renderCarousel(imageUrl)}> */}
 
           <FastImage
-            source={{uri: imageUrl, priority: FastImage.priority.high}}
+            source={{ uri: imageUrl, priority: FastImage.priority.high }}
             //  onLoadStart={()=>}
-            onLoadEnd={() => updateState({imageLoader: false})}
+            onLoadEnd={() => updateState({ imageLoader: false })}
             style={{
               height: width * 0.5,
               width: width - 20,
@@ -118,11 +118,11 @@ const BannerWithText = ({
           </View>
 
           {pagination && (
-            <View style={{justifyContent: 'flex-end'}}>
+            <View style={{ justifyContent: 'flex-end' }}>
               <Pagination
                 dotsLength={bannerData.length}
                 activeDotIndex={slider1ActiveSlide}
-                containerStyle={{paddingTop: 5}}
+                containerStyle={{ paddingTop: 5 }}
                 dotColor={themeColors?.primary_color}
                 dotStyle={[styles.dotStyle, dotStyle]}
                 inactiveDotColor={'grey'}
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
   },
-  dotStyle: {height: 6, width: 6, borderRadius: 12 / 2},
+  dotStyle: { height: 6, width: 6, borderRadius: 12 / 2 },
   cardViewStyle: {
     alignItems: 'center',
     height: height / 0.6,

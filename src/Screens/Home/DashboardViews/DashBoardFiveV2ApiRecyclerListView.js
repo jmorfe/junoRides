@@ -13,7 +13,6 @@ import {
 import * as Animatable from 'react-native-animatable';
 import DashedLine from 'react-native-dashed-line';
 import DeviceInfo, { getBundleId } from 'react-native-device-info';
-import RNExitApp from 'react-native-exit-app';
 import FastImage from 'react-native-fast-image';
 import Carousel from 'react-native-snap-carousel';
 import { SvgUri } from 'react-native-svg';
@@ -168,9 +167,6 @@ const DashBoardFiveV2Api = ({
   }, [appMainData?.categories]);
 
 
-  const OnTakeMeOut = () => {
-    RNExitApp.exitApp();
-  };
 
   const checkAgeModalPermission = async () => {
     try {
@@ -1038,9 +1034,9 @@ const DashBoardFiveV2Api = ({
                   />
                 </View>
 
-                <Text onPress={OnTakeMeOut} style={styles.takeMeOutStyle}>
+                {/* <Text onPress={OnTakeMeOut} style={styles.takeMeOutStyle}>
                   {strings.TAKE_ME_OUT}
-                </Text>
+                </Text> */}
               </View>
             </View>
           </Modal>

@@ -2,7 +2,6 @@ import { View, Text, Image } from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
 
 
-import * as Progress from 'react-native-progress';
 
 import { useSelector } from 'react-redux';
 
@@ -45,7 +44,7 @@ const BidAcceptRejectCard = ({
       marginTop: moderateScaleVertical(20),
       width: moderateScale(width - 40),
       alignSelf: 'center',
-      backgroundColor:colors?.whiteSmokeColor,
+      backgroundColor: colors?.whiteSmokeColor,
       borderRadius: moderateScale(15), overflow: 'hidden'
     }}>
       <View style={{
@@ -61,7 +60,7 @@ const BidAcceptRejectCard = ({
           strokeWidth={5}
         >
           {({ remainingTime }) => {
-           // remainingTime == 1 && bidExpiryDuration !=null && _onDeclineBid(data?.id)
+            // remainingTime == 1 && bidExpiryDuration !=null && _onDeclineBid(data?.id)
             return (
               <Text>{remainingTime}</Text>
             )
@@ -72,13 +71,13 @@ const BidAcceptRejectCard = ({
       </View>
       <View style={{ marginHorizontal: moderateScale(10), flexDirection: 'row', alignItems: 'center', }}>
         <View>
-          <Image style={{ height: moderateScaleVertical(50), width: moderateScale(50), borderRadius: moderateScale(25) }} source={{ uri:data?.driver_image }} />
+          <Image style={{ height: moderateScaleVertical(50), width: moderateScale(50), borderRadius: moderateScale(25) }} source={{ uri: data?.driver_image }} />
         </View>
 
         <View style={{ marginHorizontal: moderateScale(10), flexDirection: 'row', justifyContent: 'space-between' }}>
           <View style={{ width: '62%', }}>
             <Text style={{ fontSize: textScale(13), fontFamily: fontFamily.bold }}>{data?.driver_name}</Text>
-            
+
           </View>
           <View>
             <Text style={{ fontSize: textScale(15), color: themeColors?.primary_color, fontFamily: fontFamily?.bold }}> {tokenConverterPlusCurrencyNumberFormater(

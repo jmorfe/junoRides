@@ -17,8 +17,7 @@ import {
   View
 } from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
-import { createThumbnail } from 'react-native-create-thumbnail';
-import DocumentPicker from 'react-native-document-picker';
+import { pick } from '@react-native-documents/picker';
 import FastImage from 'react-native-fast-image';
 import { ScrollView } from 'react-native-gesture-handler';
 import { GiftedChat, InputToolbar, Send } from 'react-native-gifted-chat';
@@ -247,7 +246,7 @@ export default function ChatScreen({ route, navigation }) {
         const allRoomUsersAppartFromAgentAry = cloneRes?.userData.filter(
           (item) => {
 
-            if (item?.user_id!=userData?.id) {
+            if (item?.user_id != userData?.id) {
               return item?.user_type !== 'agent';
             }
           },
@@ -655,16 +654,12 @@ export default function ChatScreen({ route, navigation }) {
 
   const pickDocument = async () => {
     try {
-      const res = await DocumentPicker.pickMultiple({
+      const res = await pickMultiple({
         type: [
-          DocumentPicker.types.pdf,
-          DocumentPicker.types.zip,
-          DocumentPicker.types.doc,
-          DocumentPicker.types.docx,
-          DocumentPicker.types.ppt,
-          DocumentPicker.types.pptx,
-          DocumentPicker.types.xls,
-          DocumentPicker.types.xlsx,
+          'application/pdf',
+          'application/doc',
+          'application/docx',
+          'application/ppt',
         ],
       });
 
@@ -697,10 +692,10 @@ export default function ChatScreen({ route, navigation }) {
     files.map(async (media, inx) => {
       var thumbnailPath = {};
       if (media?.mime == 'video/mp4') {
-        thumbnailPath = await createThumbnail({
-          url: media?.path,
-          timeStamp: 10000, // Specify the timestamp for the desired thumbnail (in milliseconds)
-        });
+        // thumbnailPath = await createThumbnail({
+        //   url: media?.path,
+        //   timeStamp: 10000, // Specify the timestamp for the desired thumbnail (in milliseconds)
+        // });
         // setThumbnail(thumbnailPath);
       }
       let newMsg = {
@@ -1110,7 +1105,7 @@ export default function ChatScreen({ route, navigation }) {
       </View>
     );
   };
-  
+
 
   const getUniqueByProperty = (arr, property) => {
     return arr.reduce((unique, item) => {
@@ -1139,12 +1134,12 @@ export default function ChatScreen({ route, navigation }) {
           flexDirection: "row",
           alignItems: "center",
         }}>
-          {console.log(reciverData,'reciverDatareciverData')}
+          {console.log(reciverData, 'reciverDatareciverData')}
           <ButtonImage imgStyle={{ tintColor: isDarkMode ? colors.white : colors.black }} onPress={() => !!paramData?.isFromOrder ? navigation.reset({
             index: 0,
-            routes: [{name: navigationStrings.TAB_ROUTES}],
+            routes: [{ name: navigationStrings.TAB_ROUTES }],
           }) : navigation.goBack()} image={imagePath.ic_backarrow} />
-          {(!!reciverData?.image_fit||!!productDetails?.vendor?.user_vendor?.user?.image?.image_fit?.image)?<FastImage style={{
+          {(!!reciverData?.image_fit || !!productDetails?.vendor?.user_vendor?.user?.image?.image_fit?.image) ? <FastImage style={{
             height: moderateScale(28),
             width: moderateScale(28),
             borderRadius: moderateScale(14),
@@ -1155,29 +1150,29 @@ export default function ChatScreen({ route, navigation }) {
             priority: FastImage.priority.high,
             cache: FastImage.cacheControl.immutable,
           }}
-      
-          />:
-          !!reciverData?.name?<View
+
+          /> :
+            !!reciverData?.name ? <View
               style={{
                 width: moderateScale(30),
                 height: moderateScale(30),
-                marginLeft:moderateScale(6),
+                marginLeft: moderateScale(6),
                 borderRadius: moderateScale(30) / 2,
                 backgroundColor: colors.paleRed,
                 alignItems: 'center',
                 justifyContent: 'center',
               }}>
-             <Text
+              <Text
                 style={{
                   fontSize: textScale(20),
                   fontFamily: fontFamily.medium,
-                  color:colors.black,
-                  textTransform:'capitalize'
+                  color: colors.black,
+                  textTransform: 'capitalize'
                 }}>
-                {reciverData.name.slice(0,1)[0]}
+                {reciverData.name.slice(0, 1)[0]}
               </Text>
-            </View>:
-            <></>
+            </View> :
+              <></>
           }
 
           <Text numberOfLines={2} style={{
@@ -1207,7 +1202,7 @@ export default function ChatScreen({ route, navigation }) {
             fontFamily: fontFamily?.bold,
             color: themeColors?.primary_color,
             fontSize: textScale(10),
-            maxWidth:width/4
+            maxWidth: width / 4
           }}>{"Pickup Complete"}</Text>
         </TouchableOpacity>}
         {(orderVendorDetail?.order_status_option_id == 4 && userData?.vendor_id === productDetails?.vendor_id) && <TouchableOpacity onPress={onPickupDropoffComplete}>
@@ -1215,7 +1210,7 @@ export default function ChatScreen({ route, navigation }) {
             fontFamily: fontFamily?.bold,
             color: themeColors?.primary_color,
             fontSize: textScale(10),
-            maxWidth:width/4
+            maxWidth: width / 4
           }}>{"Drop-off Complete"}</Text>
 
         </TouchableOpacity>}

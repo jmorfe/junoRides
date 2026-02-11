@@ -1,18 +1,17 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   ImageBackground,
   StyleSheet,
   TouchableOpacity,
   View,
 } from 'react-native';
-import CardView from 'react-native-cardview';
 import FastImage from 'react-native-fast-image';
-import {UIActivityIndicator} from 'react-native-indicators';
-import Carousel, {Pagination} from 'react-native-snap-carousel';
-import {useSelector} from 'react-redux';
-import {moderateScale, width} from '../styles/responsiveSize';
-import {getImageUrl} from '../utils/helperFunctions';
-import {MyDarkTheme} from '../styles/theme';
+import { UIActivityIndicator } from 'react-native-indicators';
+import Carousel, { Pagination } from 'react-native-snap-carousel';
+import { useSelector } from 'react-redux';
+import { moderateScale, width } from '../styles/responsiveSize';
+import { getImageUrl } from '../utils/helperFunctions';
+import { MyDarkTheme } from '../styles/theme';
 import colors from '../styles/colors';
 
 const Banner = ({
@@ -27,12 +26,12 @@ const Banner = ({
   onSnapToItem,
   pagination = true,
   resizeMode = 'cover',
-  setActiveState = () => {},
+  setActiveState = () => { },
   childView = null,
   showLightbox = false,
-  onPressImage = () => {},
+  onPressImage = () => { },
 }) => {
-  const {themeColors} = useSelector((state) => state?.initBoot);
+  const { themeColors } = useSelector((state) => state?.initBoot);
   const theme = useSelector((state) => state?.initBoot?.themeColor);
   const isDarkMode = theme;
 
@@ -41,19 +40,19 @@ const Banner = ({
     showLightboxView: false,
     imageLoader: true,
   });
-  const updateState = (data) => setState((state) => ({...state, ...data}));
-  const {slider1ActiveSlide, showLightboxView} = state;
+  const updateState = (data) => setState((state) => ({ ...state, ...data }));
+  const { slider1ActiveSlide, showLightboxView } = state;
   const setSnapState = (index) => {
-    updateState({slider1ActiveSlide: index});
+    updateState({ slider1ActiveSlide: index });
     setActiveState(index);
   };
-  const bannerDataImages = ({item, index}) => {
+  const bannerDataImages = ({ item, index }) => {
     const imageUrl = item?.image?.path
       ? getImageUrl(
-          item.image.path.image_fit,
-          item.image.path.image_path,
-          '600/6000',
-        )
+        item.image.path.image_fit,
+        item.image.path.image_path,
+        '600/6000',
+      )
       : getImageUrl(item.image.image_fit, item.image.image_path, '1000/1000');
 
     return (
@@ -72,7 +71,7 @@ const Banner = ({
               cache: FastImage.cacheControl.immutable,
             }}
             //  onLoadStart={()=>}
-            onLoadEnd={() => updateState({imageLoader: false})}
+            onLoadEnd={() => updateState({ imageLoader: false })}
             style={{
               height: width * 0.7,
               width: width,
@@ -94,11 +93,11 @@ const Banner = ({
           {/* </Lightbox> */}
 
           {pagination && (
-            <View style={{justifyContent: 'flex-end', height: 200}}>
+            <View style={{ justifyContent: 'flex-end', height: 200 }}>
               <Pagination
                 dotsLength={bannerData.length}
                 activeDotIndex={slider1ActiveSlide}
-                containerStyle={{paddingTop: 5}}
+                containerStyle={{ paddingTop: 5 }}
                 dotColor={'grey'}
                 dotStyle={[styles.dotStyle, dotStyle]}
                 inactiveDotColor={'black'}
@@ -112,7 +111,7 @@ const Banner = ({
     );
   };
   return (
-    <CardView style={{...styles.cardViewStyle, ...cardViewStyle}}>
+    <View style={{ ...styles.cardViewStyle, ...cardViewStyle }}>
       <Carousel
         ref={bannerRef}
         data={bannerData}
@@ -124,7 +123,7 @@ const Banner = ({
         itemWidth={itemWidth}
         onSnapToItem={(index) => setSnapState(index)}
       />
-    </CardView>
+    </View>
   );
 };
 
@@ -136,7 +135,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
   },
-  dotStyle: {height: 12, width: 12, borderRadius: 12 / 2},
+  dotStyle: { height: 12, width: 12, borderRadius: 12 / 2 },
   cardViewStyle: {
     marginHorizontal: moderateScale(10),
   },

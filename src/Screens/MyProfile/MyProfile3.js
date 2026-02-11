@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
 import { getBundleId } from 'react-native-device-info';
-import DocumentPicker from 'react-native-document-picker';
+import { pick } from '@react-native-documents/picker';
 import FastImage from 'react-native-fast-image';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useSelector } from 'react-redux';
@@ -123,7 +123,7 @@ export default function MyProfile3({ route, navigation }) {
     addtionalTextInputs: [],
     addtionalImages: [],
     addtionalPdfs: [],
-    isProfileImgUpdated:false
+    isProfileImgUpdated: false
   });
   const {
     address,
@@ -299,7 +299,7 @@ export default function MyProfile3({ route, navigation }) {
     if (!isValid) {
       return;
     }
-    if((phoneNumber==userData?.phone_number && email == userData?.email && name ==userData?.name)&& !isProfileImgUpdated){
+    if ((phoneNumber == userData?.phone_number && email == userData?.email && name == userData?.name) && !isProfileImgUpdated) {
       showError('No change in data')
       return
     }
@@ -389,7 +389,7 @@ export default function MyProfile3({ route, navigation }) {
           };
           console.log("obj+++++++++", obj)
           actions.updateProfile({ ...userData, ...obj });
-          updateState({ isLoading: false,isProfileImgUpdated:false });
+          updateState({ isLoading: false, isProfileImgUpdated: false });
           // navigation.goBack()
           showSuccess(res.message);
 
@@ -602,7 +602,7 @@ export default function MyProfile3({ route, navigation }) {
                     source,
                   };
                   actions.updateProfile({ ...userData, ...image });
-                  updateState({ isLoading: false,isProfileImgUpdated:true });
+                  updateState({ isLoading: false, isProfileImgUpdated: true });
                   showSuccess(res.message);
                 })
                 .catch(err => {
@@ -765,8 +765,10 @@ export default function MyProfile3({ route, navigation }) {
 
   const getDoc = async (value, index) => {
     try {
-      const res = await DocumentPicker.pick({
-        type: [DocumentPicker.types.pdf],
+      const res = await pick({
+        type: [
+          'application/pdf',
+        ],
       });
       let data = cloneDeep(addtionalPdfs);
       if (res) {

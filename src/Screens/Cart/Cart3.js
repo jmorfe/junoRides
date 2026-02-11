@@ -26,7 +26,7 @@ import ActionSheet from 'react-native-actionsheet';
 import { Calendar } from 'react-native-calendars';
 import DatePicker from 'react-native-date-picker';
 import DeviceInfo, { getBundleId } from 'react-native-device-info';
-import DocumentPicker from 'react-native-document-picker';
+import { pick } from '@react-native-documents/picker';
 import DropDownPicker from 'react-native-dropdown-picker';
 import FastImage from 'react-native-fast-image';
 import * as RNLocalize from 'react-native-localize';
@@ -294,12 +294,12 @@ function Cart({ navigation, route }) {
       return () => backHandler.remove();
     }, []),
   );
-  
+
   const androidBackButtonHandler = () => {
-    if(!!paymentModal){
+    if (!!paymentModal) {
       setPaymentModal(false)
       return true;
-    }else{
+    } else {
       Alert.alert(strings.HOLD_ON, strings.EXIT_WARNING, [
         {
           text: strings.CANCEL,
@@ -748,7 +748,7 @@ function Cart({ navigation, route }) {
   }, [paramsData?.transactionId]);
   //Verify your promo code
   const _removeCoupon = (item, cartData) => {
-    updateState({deliveryFeeLoader:true})
+    updateState({ deliveryFeeLoader: true })
     // updateState({ isLoadingB: true });
     let data = {};
     data['vendor_id'] = item?.vendor_id;
@@ -767,7 +767,7 @@ function Cart({ navigation, route }) {
           showSuccess(res?.message || res?.error);
           getCartDetail();
         } else {
-          updateState({ isLoadingB: false ,deliveryFeeLoader:false});
+          updateState({ isLoadingB: false, deliveryFeeLoader: false });
         }
       })
       .catch(errorMethod);
@@ -1056,23 +1056,23 @@ function Cart({ navigation, route }) {
         updateState({ placeLoader: false });
         navigation.navigate(navigationStrings.PESAPAL, paymentData);
         return;
-        case 59: //stafood: pesapal  Payment Getway
+      case 59: //stafood: pesapal  Payment Getway
         updateState({ placeLoader: false });
         navigation.navigate(navigationStrings.LIVESS, paymentData);
         return;
-        case 3: //stafood: paypal  Payment Getway
+      case 3: //stafood: paypal  Payment Getway
         updateState({ placeLoader: false });
         navigation.navigate(navigationStrings.PAYPAL, paymentData);
         return;
-        case 46: //Master Card
+      case 46: //Master Card
         updateState({ placeLoader: false });
         navigation.navigate(navigationStrings.MASTERCARD, paymentData);
         return;
-        case 56: //Direct Pay Online Payment Getway
+      case 56: //Direct Pay Online Payment Getway
         updateState({ placeLoader: false });
         navigation.navigate(navigationStrings.OPAY, paymentData);
         return;
-        case 69: //stafood: pesapal  Payment Getway
+      case 69: //stafood: pesapal  Payment Getway
         updateState({ placeLoader: false });
         navigation.navigate(navigationStrings.HITPAY, paymentData);
         return;
@@ -1330,7 +1330,7 @@ function Cart({ navigation, route }) {
           selectedPayment?.id != 49 &&
           selectedPayment?.id != 50 &&
           selectedPayment?.id != 53 &&
-          selectedPayment?.id != 48 && 
+          selectedPayment?.id != 48 &&
           selectedPayment?.id != 59
         ) {
           setCartItems([]);
@@ -1551,10 +1551,10 @@ function Cart({ navigation, route }) {
           return;
         }
       }
-if(!localeSheduledOrderDate && (getBundleId() == appIds.maids)){
-  showInfo(strings.SCHEDULE_DATE_REQUIRED);
-  return;
-}
+      if (!localeSheduledOrderDate && (getBundleId() == appIds.maids)) {
+        showInfo(strings.SCHEDULE_DATE_REQUIRED);
+        return;
+      }
       if (
         !!cartData?.closed_store_order_scheduled &&
         cartData?.products[0]?.vendor?.is_vendor_closed &&
@@ -2569,7 +2569,7 @@ if(!localeSheduledOrderDate && (getBundleId() == appIds.maids)){
   };
 
   const _renderItem = ({ item, index }) => {
-    console.log("cart itemitem",item)
+    console.log("cart itemitem", item)
     return (
       <View>
         {index === 0 && (
@@ -4130,8 +4130,8 @@ if(!localeSheduledOrderDate && (getBundleId() == appIds.maids)){
 
   const getDoc = async (value, index) => {
     try {
-      const res = await DocumentPicker.pick({
-        type: [DocumentPicker.types.pdf],
+      const res = await pick({
+        type: ['application/pdf']
       });
       let data = cloneDeep(kycPdfs);
       if (res) {

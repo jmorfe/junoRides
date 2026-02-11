@@ -15,7 +15,7 @@ import {
 import ActionSheet from 'react-native-actionsheet';
 import Accordion from 'react-native-collapsible/Accordion';
 import DeviceInfo from 'react-native-device-info';
-import DocumentPicker from 'react-native-document-picker';
+import { pick } from '@react-native-documents/picker';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { MenuProvider } from 'react-native-popup-menu';
@@ -422,7 +422,7 @@ export default function WebLinks(props) {
       formData.append('bank_name', bankName);
       formData.append('account_number', accountNumber);
       formData.append('ifsc_code', ifscCode);
-      if(!isEmpty(vendorLogo)){
+      if (!isEmpty(vendorLogo)) {
         formData.append('upload_logo', {
           uri: vendorLogo.path,
           name: vendorLogo.filename,
@@ -431,7 +431,7 @@ export default function WebLinks(props) {
         });
       }
 
-      if(!isEmpty(vendorBanner)){
+      if (!isEmpty(vendorBanner)) {
         formData.append('upload_banner', {
           uri: vendorBanner.path,
           name: vendorBanner.filename,
@@ -538,8 +538,11 @@ export default function WebLinks(props) {
     console.log(indx, 'indx');
     if (type == 'Pdf') {
       try {
-        const res = await DocumentPicker.pick({
-          type: DocumentPicker.types.pdf,
+        const res = await pick({
+          type: [
+            'application/pdf',
+
+          ],
         });
 
         if (pageData?.page_detail?.primary?.type_of_form == 2) {
@@ -562,11 +565,8 @@ export default function WebLinks(props) {
           });
         }
       } catch (err) {
-        if (DocumentPicker.isCancel(err)) {
-          console.log('cancel');
-        } else {
-          throw err;
-        }
+        console.log('cancel');
+        throw err;
       }
     } else {
       clickedIndx = indx;
@@ -1008,8 +1008,8 @@ export default function WebLinks(props) {
   const onPressGoBack = () => {
     if (!!paramData?.isComeFromDrawer) {
       navigation.reset({
-      index: 0,
-      routes: [{name: navigationStrings.TAB_ROUTES}],
+        index: 0,
+        routes: [{ name: navigationStrings.TAB_ROUTES }],
       })
     } else {
       navigation.goBack()

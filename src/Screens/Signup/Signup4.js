@@ -13,7 +13,7 @@ import {
 import ActionSheet from 'react-native-actionsheet';
 import DeviceCountry from 'react-native-device-country';
 import DeviceInfo from 'react-native-device-info';
-import DocumentPicker from 'react-native-document-picker';
+import { pick } from '@react-native-documents/picker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import RNOtpVerify from 'react-native-otp-verify';
 import { useSelector } from 'react-redux';
@@ -400,8 +400,11 @@ export default function Signup4({ navigation }) {
 
   const getDoc = async (value, index) => {
     try {
-      const res = await DocumentPicker.pick({
-        type: [DocumentPicker.types.pdf],
+      const res = await pick({
+        type: [
+          'application/pdf',
+
+        ],
       });
       let data = cloneDeep(addtionalPdfs);
       if (res) {

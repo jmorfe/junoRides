@@ -1,9 +1,9 @@
-import {stringify} from 'querystring';
-import React, {useEffect, useState} from 'react';
-import {Image, Text, TouchableOpacity, ScrollView, View} from 'react-native';
+import { stringify } from 'querystring';
+import React, { useEffect, useState } from 'react';
+import { Image, Text, TouchableOpacity, ScrollView, View } from 'react-native';
 import Geocoder from 'react-native-geocoding';
 import MapView from 'react-native-maps'; // remove PROVIDER_GOOGLE import if not using Google Maps
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import WrapperContainer from '../../Components/WrapperContainer';
 import imagePath from '../../constants/imagePath';
 import colors from '../../styles/colors';
@@ -17,18 +17,18 @@ import {
 import strings from '../../constants/lang';
 import stylesFun from '../CourierService/ChooseCarTypeAndTime/styles';
 import Modal from 'react-native-modal';
-import Dash from 'react-native-dash';
-import {cloneDeep} from 'lodash';
+import DashedLine from 'react-native-dashed-line';
+import { cloneDeep } from 'lodash';
 import TransparentButtonWithTxtAndIcon from '../../Components/TransparentButtonWithTxtAndIcon';
 import GradientButton from '../../Components/GradientButton';
 
 export default function CabAndOrderDetailModal({
   isModalVisible = false,
-  navigation = {navigation},
+  navigation = { navigation },
   updateModalState,
   closeModal,
 }) {
-  const {appData, themeColors, appStyle} = useSelector(
+  const { appData, themeColors, appStyle } = useSelector(
     (state) => state?.initBoot,
   );
 
@@ -60,12 +60,12 @@ export default function CabAndOrderDetailModal({
     viewHeights: [],
     viewLoadFinised: false,
   });
-  const {isLoading, pickupArray, viewHeights, viewLoadFinised} = state;
+  const { isLoading, pickupArray, viewHeights, viewLoadFinised } = state;
 
-  const updateState = (data) => setState((state) => ({...state, ...data}));
-  const styles = stylesFun({fontFamily, themeColors});
-  const commonStyles = commonStylesFun({fontFamily});
-  const {profile} = appData;
+  const updateState = (data) => setState((state) => ({ ...state, ...data }));
+  const styles = stylesFun({ fontFamily, themeColors });
+  const commonStyles = commonStylesFun({ fontFamily });
+  const { profile } = appData;
   // useEffect(() => {
   //   if (isModalVisible) {
   //     setTimeout(() => {
@@ -79,7 +79,7 @@ export default function CabAndOrderDetailModal({
   }, [viewHeights]);
 
   const _closeModal = () => {
-    updateState({viewHeights: []});
+    updateState({ viewHeights: [] });
     closeModal();
   };
 
@@ -104,7 +104,7 @@ export default function CabAndOrderDetailModal({
       onLayout={(event) => {
         // updateState({viewHeight: event.nativeEvent.layout.height});
       }}>
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         {/* Top View */}
 
         <View style={styles.topView2}>
@@ -112,7 +112,7 @@ export default function CabAndOrderDetailModal({
             <Image source={imagePath.closeButton} />
           </TouchableOpacity>
         </View>
-       
+
         <ScrollView bounces={false}>
           {pickupArray &&
             pickupArray.length &&
@@ -129,19 +129,11 @@ export default function CabAndOrderDetailModal({
                       alignItems: 'center',
                       marginRight: moderateScale(5),
                     }}>
-                    <Dash
-                      style={{
-                        height: item.image?180: item.rideStatus ? 140 : 75,
-                        // height: viewHeights.length && viewLoadFinised? getHeight(index) : 80,
-                        flexDirection: 'column',
-                        alignSelf: 'center',
-
-                        // paddingBottom: moderateScaleVertical(50),
-                      }}
-                      dashLength={2}
-                      dashColor={colors.themeColor}
+                    <DashedLine
+                      dashLength={5}
+                      dashThickness={0.5}
                       dashGap={2}
-                      dashThickness={1}
+                      dashColor={colors.greyLight}
                     />
                     <Image
                       source={imagePath.checkbox}
@@ -210,7 +202,7 @@ export default function CabAndOrderDetailModal({
 
                     {item?.image ? (
                       <View
-                        style={{paddingVertical: moderateScaleVertical(20)}}>
+                        style={{ paddingVertical: moderateScaleVertical(20) }}>
                         <Image source={item?.image} />
                       </View>
                     ) : null}
@@ -237,7 +229,7 @@ export default function CabAndOrderDetailModal({
                           marginTop={moderateScaleVertical(10)}
                           // marginBottom={moderateScaleVertical(10)}
                           btnText={strings.CALL}
-                          containerStyle={{width: width / 3}}
+                          containerStyle={{ width: width / 3 }}
                         />
 
                         <TransparentButtonWithTxtAndIcon

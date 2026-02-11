@@ -1,8 +1,7 @@
-import {BlurView} from '@react-native-community/blur';
-import React, {useRef} from 'react';
-import {Animated, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {Image} from 'react-native-elements';
-import {useSelector} from 'react-redux';
+import { BlurView } from '@react-native-community/blur';
+import React, { useRef } from 'react';
+import { Animated, StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
+import { useSelector } from 'react-redux';
 import colors from '../styles/colors';
 import {
   moderateScale,
@@ -20,15 +19,15 @@ const ImgCardForBrickList = ({
   data,
   rectImage,
   text,
-  onPress = () => {},
+  onPress = () => { },
   containerStyle = {},
   imageStyle = {},
 }) => {
-  const {appStyle} = useSelector((state) => state.initBoot);
+  const { appStyle } = useSelector((state) => state.initBoot);
   const fontFamily = appStyle?.fontSizeData;
   const scaleInAnimated = new Animated.Value(0);
   const viewRef2 = useRef();
-  const styles = stylesData({fontFamily});
+  const styles = stylesData({ fontFamily });
 
   return (
     <TouchableOpacity
@@ -39,10 +38,10 @@ const ImgCardForBrickList = ({
       style={[
         styles.rectangleBox,
         containerStyle,
-        {...getScaleTransformationStyle(scaleInAnimated)},
+        { ...getScaleTransformationStyle(scaleInAnimated) },
       ]}>
-        {/* <Text>jgfjgjfggj</Text> */}
-        {/* <View>
+      {/* <Text>jgfjgjfggj</Text> */}
+      {/* <View>
         <Image
           PlaceholderContent={
             <Image
@@ -67,7 +66,7 @@ const ImgCardForBrickList = ({
         />
         </View> */}
       <Animated.View>
-       
+
 
         <Image
           PlaceholderContent={
@@ -94,8 +93,8 @@ const ImgCardForBrickList = ({
         <View style={styles.imgOverlay} />
         <View
           ref={viewRef2}
-          style={[styles.blurContainer, {alignSelf: 'center'}]}>
-          
+          style={[styles.blurContainer, { alignSelf: 'center' }]}>
+
           {/* <BlurView
             style={styles.absolute}
             viewRef={viewRef2}
@@ -110,7 +109,7 @@ const ImgCardForBrickList = ({
   );
 };
 
-export function stylesData({fontFamily}) {
+export function stylesData({ fontFamily }) {
   const styles = StyleSheet.create({
     imgLarge: {
       height: '100%',
@@ -144,9 +143,9 @@ export function stylesData({fontFamily}) {
       color: colors.white,
       fontFamily: fontFamily.bold,
       opacity: 0.9,
-      alignSelf:'center',
-      textAlign:'center'
-     
+      alignSelf: 'center',
+      textAlign: 'center'
+
     },
     absolute: {
       position: 'absolute',

@@ -15,7 +15,6 @@ import {
 import * as Animatable from 'react-native-animatable';
 import DashedLine from 'react-native-dashed-line';
 import DeviceInfo, { getBundleId } from 'react-native-device-info';
-import RNExitApp from 'react-native-exit-app';
 import FastImage from 'react-native-fast-image';
 import {
   Menu,
@@ -79,7 +78,7 @@ export default function DashBoardFive({
     (state) => state?.initBoot,
   );
   const userData = useSelector((state) => state?.auth?.userData);
-  const {bannerRef} = useRef();
+  const { bannerRef } = useRef();
   const darkthemeusingDevice = getColorSchema();
   const isDarkMode = themeToggle ? darkthemeusingDevice : themeColor;
   const appMainData = useSelector((state) => state?.home?.appMainData);
@@ -205,9 +204,6 @@ export default function DashBoardFive({
     return homeFilter;
   };
 
-  const OnTakeMeOut = () => {
-    RNExitApp.exitApp();
-  };
 
   const checkAgeModalPermission = async () => {
     try {
@@ -444,20 +440,20 @@ export default function DashBoardFive({
           ) : (
             <View style={{ marginTop: moderateScaleVertical(4) }}>
               <BannerHome2
-            bannerRef={bannerRef}
-            slider1ActiveSlide={slider1ActiveSlide}
-            bannerData={appMainData?.mobile_banners || appData?.mobile_banners}
-            sliderWidth={width}
-            itemWidth={moderateScale(320)}
-            onSnapToItem={(index) => updateState({slider1ActiveSlide: index})}
-            onPress={(item) => bannerPress(item)}
-            isDarkMode={isDarkMode}
-            isPagination
-            imagestyle={{
-              marginRight: moderateScale(0),
-              borderRadius: moderateScale(10),
-            }}
-          />
+                bannerRef={bannerRef}
+                slider1ActiveSlide={slider1ActiveSlide}
+                bannerData={appMainData?.mobile_banners || appData?.mobile_banners}
+                sliderWidth={width}
+                itemWidth={moderateScale(320)}
+                onSnapToItem={(index) => updateState({ slider1ActiveSlide: index })}
+                onPress={(item) => bannerPress(item)}
+                isDarkMode={isDarkMode}
+                isPagination
+                imagestyle={{
+                  marginRight: moderateScale(0),
+                  borderRadius: moderateScale(10),
+                }}
+              />
               {/* <FlatList
                 horizontal
                 data={appMainData?.mobile_banners || appData?.mobile_banners}
@@ -1179,9 +1175,7 @@ export default function DashBoardFive({
                     />
                   </View>
 
-                  <Text onPress={OnTakeMeOut} style={styles.takeMeOutStyle}>
-                    {strings.TAKE_ME_OUT}
-                  </Text>
+
                 </View>
               </View>
             </Modal>

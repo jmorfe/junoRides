@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Vibration } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
-import Geocoder from 'react-native-geocoder';
+import Geocoder from 'react-native-geocoding';
 import Geolocation from 'react-native-geolocation-service';
 import { BackHandler, Alert, Animated, Text } from 'react-native';
 import strings from './../constants/lang/index';
@@ -10,7 +10,6 @@ import navigationStrings from '../navigation/navigationStrings';
 import actions from '../redux/actions';
 import * as NavigationService from '../navigation/NavigationService';
 import Toast from 'react-native-simple-toast';
-import  SunmiPrinter  from '@heasy/react-native-sunmi-printer'
 
 import { moderateScaleVertical, StatusBarHeight } from '../styles/responsiveSize';
 import { getDistance } from 'geolib';
@@ -618,7 +617,7 @@ export function redirectFromNotification(clickActionUrl = null) {
     }
   }
 }
-const createDates = (dates) =>{
+const createDates = (dates) => {
   const resultArray = [];
   const currentDate = moment();
 
@@ -628,21 +627,21 @@ const createDates = (dates) =>{
     const year = currentDate.year(); // Get the year
     const dateString = currentDate.format('YYYY-MM-DD');
     // 2023-09-08
-    resultArray.push({ name, day, year,dateString });
+    resultArray.push({ name, day, year, dateString });
     currentDate.add(1, 'days');
   }
   return resultArray
 }
 
-export const isSunmiPrinterConnected = async () => {
-  try {
-    const connectedDevices = await SunmiPrinter.hasPrinter(); // Assuming this method exists
-    return connectedDevices;
-  } catch (error) {
-    console.error('Error checking Sunmi printer connection:', error);
-    return false; 
-  }
-};
+// export const isSunmiPrinterConnected = async () => {
+//   try {
+//     const connectedDevices = await SunmiPrinter.hasPrinter(); // Assuming this method exists
+//     return connectedDevices;
+//   } catch (error) {
+//     console.error('Error checking Sunmi printer connection:', error);
+//     return false; 
+//   }
+// };
 
 export {
   showError,

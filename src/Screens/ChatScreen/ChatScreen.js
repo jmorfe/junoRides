@@ -16,8 +16,7 @@ import {
   View,
 } from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
-import { createThumbnail } from 'react-native-create-thumbnail';
-import DocumentPicker from 'react-native-document-picker';
+import { pick } from '@react-native-documents/picker';
 import FastImage from 'react-native-fast-image';
 import { ScrollView } from 'react-native-gesture-handler';
 import { GiftedChat, InputToolbar, Send } from 'react-native-gifted-chat';
@@ -589,16 +588,12 @@ export default function ChatScreen({ route, navigation }) {
           PermissionsAndroid.RESULTS.GRANTED
         ) {
           try {
-            const res = await DocumentPicker.pick({
+            const res = await pick({
               type: [
-                DocumentPicker.types.pdf,
-                DocumentPicker.types.zip,
-                DocumentPicker.types.doc,
-                DocumentPicker.types.docx,
-                DocumentPicker.types.ppt,
-                DocumentPicker.types.pptx,
-                DocumentPicker.types.xls,
-                DocumentPicker.types.xlsx,
+                'application/pdf',
+                'application/doc',
+                'application/docx',
+                'application/ppt',
               ],
             });
 
@@ -637,10 +632,10 @@ export default function ChatScreen({ route, navigation }) {
             console.log(res, '<====cameraImgVideoHandler');
             var thumbnailPath = {};
             if (res?.mime == 'video/mp4') {
-              thumbnailPath = await createThumbnail({
-                url: res?.path,
-                timeStamp: 10000, // Specify the timestamp for the desired thumbnail (in milliseconds)
-              });
+              // thumbnailPath = await createThumbnail({
+              //   url: res?.path,
+              //   timeStamp: 10000, // Specify the timestamp for the desired thumbnail (in milliseconds)
+              // });
               // setThumbnail(thumbnailPath);
             }
 

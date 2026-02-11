@@ -13,7 +13,7 @@ import {
 import ActionSheet from 'react-native-actionsheet';
 import DeviceCountry from 'react-native-device-country';
 import DeviceInfo, { getBundleId } from 'react-native-device-info';
-import DocumentPicker from 'react-native-document-picker';
+import { pick } from '@react-native-documents/picker';
 import FastImage from 'react-native-fast-image';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import RNOtpVerify from 'react-native-otp-verify';
@@ -136,7 +136,7 @@ export default function Signup({ navigation }) {
     beneficiaryName: '',
     accountNumber: '',
     ifscCode: '',
-    additionalSelectors:[]
+    additionalSelectors: []
   });
   const {
     phoneNumber,
@@ -263,7 +263,7 @@ export default function Signup({ navigation }) {
           addtionalTextInputs: res?.data.filter((x) => x?.file_type == 'Text'),
           addtionalImages: res?.data.filter((x) => x?.file_type == 'Image'),
           addtionalPdfs: res?.data.filter((x) => x?.file_type == 'Pdf'),
-          additionalSelectors:res?.data?.filter((x)=>x?.file_type == 'selector')
+          additionalSelectors: res?.data?.filter((x) => x?.file_type == 'selector')
         });
       })
       .catch((err) => {
@@ -375,11 +375,11 @@ export default function Signup({ navigation }) {
         if (!!i?.selectedValue) {
           formdata.append(i?.translations[0].slug, i?.selectedValue?.translations[0]?.name);
         } else if (i?.is_required) {
-            showError(
-              `${strings.PLEASE_SELECT
-              } ${i?.translations[0].name.toLowerCase()}`,
-            );
-            return;
+          showError(
+            `${strings.PLEASE_SELECT
+            } ${i?.translations[0].name.toLowerCase()}`,
+          );
+          return;
         }
       });
     }
@@ -492,7 +492,7 @@ export default function Signup({ navigation }) {
   };
   const handleDynamicSelector = (selectedval, index, type) => {
     let data = cloneDeep(additionalSelectors);
-    data[index]={...data[index],selectedValue:selectedval}
+    data[index] = { ...data[index], selectedValue: selectedval }
     updateState({ additionalSelectors: data });
   };
 
@@ -506,51 +506,51 @@ export default function Signup({ navigation }) {
       />
     );
   };
-const getAdditionalSelector=(item,index)=>{
-  console.log(item?.selectedValue?.translations[0]?.name,'itemitem')
-  return(
-    <View
-    style={{
-      marginTop: moderateScaleVertical(10),
-      zIndex: 5,
-    }}>
-    <View
-      style={{
-        flexDirection: 'row',
-        alignItems: 'center',
-      }}>
-      <Text
+  const getAdditionalSelector = (item, index) => {
+    console.log(item?.selectedValue?.translations[0]?.name, 'itemitem')
+    return (
+      <View
         style={{
-          marginBottom: moderateScaleVertical(10),
-          color: colors.redColor,
+          marginTop: moderateScaleVertical(10),
+          zIndex: 5,
         }}>
-        {`${item?.is_required ? '* ' : ''}`}
-      </Text>
-      <Text
-        style={{
-          marginBottom: moderateScaleVertical(10),
-          fontFamily: fontFamily.medium,
-          color: isDarkMode ? colors.white : colors.blackC,
-        }}>
-        {item?.translations[0]?.name}
-      </Text>
-    </View>
-    <DropDown
-      value={item?.selectedValue?.translations[0]?.name ? item?.selectedValue?.translations[0]?.name:''}
-      modalStyle={{
-        width: width - moderateScale(50),
-        position: 'relative',
-      }}
-      selectedIndexByProps={-1}
-      placeholder={strings.SELECT_ANS}
-      data={item?.options}
-      fetchValues={(val) => handleDynamicSelector(val,index)}
-      marginBottom={0}
-    // inputStyle={{ borderColor: countryError !== '' ? colors.redColor : colors.lightGray }}
-    />
-  </View>
-  )
-}
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}>
+          <Text
+            style={{
+              marginBottom: moderateScaleVertical(10),
+              color: colors.redColor,
+            }}>
+            {`${item?.is_required ? '* ' : ''}`}
+          </Text>
+          <Text
+            style={{
+              marginBottom: moderateScaleVertical(10),
+              fontFamily: fontFamily.medium,
+              color: isDarkMode ? colors.white : colors.blackC,
+            }}>
+            {item?.translations[0]?.name}
+          </Text>
+        </View>
+        <DropDown
+          value={item?.selectedValue?.translations[0]?.name ? item?.selectedValue?.translations[0]?.name : ''}
+          modalStyle={{
+            width: width - moderateScale(50),
+            position: 'relative',
+          }}
+          selectedIndexByProps={-1}
+          placeholder={strings.SELECT_ANS}
+          data={item?.options}
+          fetchValues={(val) => handleDynamicSelector(val, index)}
+          marginBottom={0}
+        // inputStyle={{ borderColor: countryError !== '' ? colors.redColor : colors.lightGray }}
+        />
+      </View>
+    )
+  }
   //Update Images
   const updateImages = (type, index) => {
     setPickerType(2)
@@ -593,8 +593,11 @@ const getAdditionalSelector=(item,index)=>{
 
   const getDoc = async (value, index) => {
     try {
-      const res = await DocumentPicker.pick({
-        type: [DocumentPicker.types.pdf],
+      const res = await pick({
+        type: [
+          'application/pdf',
+
+        ],
       });
       let data = cloneDeep(addtionalPdfs);
       if (res) {
@@ -879,11 +882,11 @@ const getAdditionalSelector=(item,index)=>{
                 })}
 
 
-                {!isEmpty(additionalSelectors)&&
-                additionalSelectors.map((item,index)=>{
-                 return getAdditionalSelector(item,index)
+              {!isEmpty(additionalSelectors) &&
+                additionalSelectors.map((item, index) => {
+                  return getAdditionalSelector(item, index)
                 })
-                }
+              }
 
               {!isEmpty(addtionalImages) && (
                 <View style={styles.viewStyleForUploadImage}>
@@ -1101,7 +1104,7 @@ const getAdditionalSelector=(item,index)=>{
               </View>
               <View style={{ flexDirection: 'row' }}>
                 <TouchableOpacity
-                  onPress={()=>setIsSmsPermistted(!isSmsPermistted)}
+                  onPress={() => setIsSmsPermistted(!isSmsPermistted)}
                   style={{
                     alignItems: 'center',
                     justifyContent: 'center',

@@ -9,6 +9,8 @@ def node_require(script)
     )", __dir__]).strip
 end
 
+ENV['RCT_NEW_ARCH_ENABLED'] = '1'
+ENV['USE_HERMES'] = '1'
 node_require('react-native/scripts/react_native_pods.rb')
 node_require('react-native-permissions/scripts/setup.rb')
  
@@ -27,6 +29,7 @@ abstract_target 'available_pods' do
  node_require('react-native-permissions/scripts/setup.rb')
 
   rn_maps_path = '../node_modules/react-native-maps'
+  use_frameworks! :linkage => :static
    config = use_native_modules!
    
    use_react_native!(

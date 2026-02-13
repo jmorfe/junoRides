@@ -1,4 +1,3 @@
-import { BluetoothManager } from "@brooons/react-native-bluetooth-escpos-printer";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   Alert,
@@ -571,7 +570,7 @@ export default function Account4({ navigation }) {
           />
         ) : null}
 
-        {!!userData?.auth_token &&
+        {/* {!!userData?.auth_token &&
           Platform.OS === 'android' && getBundleId() !== appIds.appi &&
           (businessType == 'taxi' ? null : (
             <ListItemHorizontal
@@ -605,7 +604,7 @@ export default function Account4({ navigation }) {
             // iconRight={imagePath.goRight}
             // rightIconStyle={{tintColor: colors.textGreyLight}}
             />
-          ))}
+          ))} */}
 
         {/* {!!userData?.auth_token && (
           <ListItemHorizontal
@@ -621,20 +620,20 @@ export default function Account4({ navigation }) {
         )} */}
         {!!userData?.auth_token &&
           <ListItemHorizontal
-          centerContainerStyle={{ flexDirection: "row" }}
-          leftIconStyle={{ flex: 0.1, alignItems: "center" }}
-          onPress={moveToNewScreen(navigationStrings.CONTACT_US)}
-          iconLeft={imagePath.contactUs}
-          centerHeading={strings.CONTACT_US}
-          containerStyle={styles.containerStyle2}
-          centerHeadingStyle={{
-            fontSize: textScale(14),
-            fontFamily: fontFamily.regular,
-          }}
-        // iconRight={imagePath.goRight}
-        // rightIconStyle={{tintColor: colors.textGreyLight}}
-        />
-}
+            centerContainerStyle={{ flexDirection: "row" }}
+            leftIconStyle={{ flex: 0.1, alignItems: "center" }}
+            onPress={moveToNewScreen(navigationStrings.CONTACT_US)}
+            iconLeft={imagePath.contactUs}
+            centerHeading={strings.CONTACT_US}
+            containerStyle={styles.containerStyle2}
+            centerHeadingStyle={{
+              fontSize: textScale(14),
+              fontFamily: fontFamily.regular,
+            }}
+          // iconRight={imagePath.goRight}
+          // rightIconStyle={{tintColor: colors.textGreyLight}}
+          />
+        }
 
 
         {dineInType !== 'p2p' &&

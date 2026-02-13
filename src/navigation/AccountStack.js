@@ -34,8 +34,8 @@ import {
   Payfast,
   Paylink,
   PickupOrderDetail,
-  PrinterConnection,
-  PrinterConnectionSunmi,
+  // PrinterConnection,
+  // PrinterConnectionSunmi,
   ProductDetail,
   ProductDetail2,
   ProductList,
@@ -91,7 +91,7 @@ export default function ({ navigation }) {
     }
   };
   const checkProfileLayout = (layout) => {
-        return MyProfile3;
+    return MyProfile3;
   };
 
   // const checkSearchProductVendorItemLayout = (layout) => {
@@ -144,14 +144,14 @@ export default function ({ navigation }) {
       <Stack.Screen name={navigationStrings.ABOUT_US} component={AboutUs} />
       <Stack.Screen name={navigationStrings.CONTACT_US} component={ContactUs} />
       <Stack.Screen name={navigationStrings.SETTIGS} component={Settings} />
-      <Stack.Screen
+      {/* <Stack.Screen
         name={navigationStrings.ATTACH_PRINTER}
         component={PrinterConnection}
       />
       <Stack.Screen
         name={navigationStrings.ATTACH_PRINTER + 'sunmi'}
         component={PrinterConnectionSunmi}
-      />
+      /> */}
       <Stack.Screen name={navigationStrings.WALLET} component={Wallet} />
       <Stack.Screen name={navigationStrings.ADD_MONEY} component={AddMoney} />
 

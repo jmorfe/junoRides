@@ -1,10 +1,10 @@
 #include "Pods/Target Support Files/Pods-available_pods-JunoRide/Pods-available_pods-JunoRide.release.xcconfig"
 
 PROJECT_APPLE_ID = 6746333439
-PROJECT_BUNDLE_ID = com.junoRide.royoorder
+PROJECT_BUNDLE_ID = com.juno.order
 PROJECT_APP_VERSION = 1.0
 PROJECT_BUILD_NUMBER = 1
-PROJECT_APP_NAME =JunoRide
+PROJECT_APP_NAME =Juno Share
 PROJECT_GOOGLE_CLIENT_ID =747225201230-n5forj79j7n138agk1ov39gmjd4fnf5m.apps.googleusercontent.com
 PROJECT_GOOGLE_REVERSE_CLIENT_ID =com.googleusercontent.apps.747225201230-n5forj79j7n138agk1ov39gmjd4fnf5m
 PROJECT_FACEBOOK_ID =3153497911538144

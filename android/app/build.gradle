@@ -149,8 +149,8 @@ android {
                     versionName "1.0"
                     minSdkVersion rootProject.ext.minSdkVersion
                     targetSdkVersion rootProject.ext.targetSdkVersion         
-                    applicationId 'com.junoRide.royoorder'
-                    resValue "string", "app_name", "JunoRide"
+                    applicationId 'com.junoRide.order'
+                    resValue "string", "app_name", "Juno Share"
                     resValue "string", "host_name", ""
                 }
               

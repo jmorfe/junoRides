@@ -145,7 +145,7 @@ android {
        productFlavors {
                 junoRide{
                     dimension "appType"
-                    versionCode 2
+                    versionCode 3
                     versionName "1.0"
                     minSdkVersion rootProject.ext.minSdkVersion
                     targetSdkVersion rootProject.ext.targetSdkVersion         
@@ -174,8 +174,6 @@ android {
     api("com.squareup.okhttp3:okhttp")
     api("com.squareup.okhttp3:logging-interceptor")
     implementation 'com.google.android.gms:play-services-location:21.0.1'
-
-
 
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")

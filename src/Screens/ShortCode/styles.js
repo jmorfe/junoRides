@@ -8,13 +8,13 @@ export default StyleSheet.create({
     color: colors.black,
     textAlign: 'center',
     fontFamily: fontFamily.circularBold,
-    fontSize:textScale(18),
+    fontSize: textScale(18),
   },
   enterShortCode2: {
     color: colors.lightGreyBgColor,
     textAlign: 'center',
     fontFamily: fontFamily.circularMedium,
-    fontSize:textScale(14),
+    fontSize: textScale(14),
   },
   guestBtn: {
     marginTop: moderateScaleVertical(20),
@@ -23,25 +23,25 @@ export default StyleSheet.create({
   },
   splashStyle: {
     flex: 1,
-    position: "absolute",
+    position: 'absolute',
     zIndex: 99,
-    alignItems: "center",
-    justifyContent: "center",
-    width: "100%",
-    height: "100%",
-    backgroundColor: "rgba(0,0,0,0.5)",
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(0,0,0,0.5)',
   },
   videoView: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: colors.white,
   },
-  videoStyle:{
-    position: "absolute",
+  videoStyle: {
+    position: 'absolute',
     top: 0,
     left: 0,
     bottom: 0,
     right: 0,
-  }
+  },
 });

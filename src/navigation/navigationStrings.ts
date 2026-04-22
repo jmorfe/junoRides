@@ -197,5 +197,8 @@ export default {
   PAYPAL:'Paypal',
   OPAY:'Opay',
   MASTERCARD:'MaserCard',
-  HITPAY:'HitPay'
+  HITPAY:'HitPay',
+  GIFT_CARD: 'giftCard',
+  BUY_GIFT_CARD: 'buyGiftCard',
+  BUY_GIFT_CARD_PAYMENT: 'buyGiftCardPayment'
 };

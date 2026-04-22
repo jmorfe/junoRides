@@ -62,6 +62,7 @@ import PaymentProcessingModal from '../../CourierService/PaymentProcessingModal'
 import SelectPaymentModalView from '../../TaxiApp/ChooseCarTypeAndTime/SelectPaymentModalView';
 import AvailableDriver from '../Comps/AvailableDriver';
 import stylesFun from './styles';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const ASPECT_RATIO = width / height;
 const LATITUDE_DELTA = 0.0922;
@@ -71,7 +72,6 @@ function ChooseVechile({ navigation, route }) {
     const paramData = route?.params?.promocodeDetail
         ? route?.params?.promocodeDetail
         : route?.params;
-    console.log(paramData, 'paramData')
     const bottomSheetRef = useRef(null);
     const mapRef = useRef();
 
@@ -96,7 +96,7 @@ function ChooseVechile({ navigation, route }) {
     const [mtnGatewayResponse, setMtnGatewayResponse] = useState('')
     const [responseTimer, setResponseTimer] = useState(420)
     const [pickuporderdetails, setPickuporderdetails] = useState('')
-    const [locaDateTime, setLocaDateTime] =  useState(null)
+    const [locaDateTime, setLocaDateTime] = useState(null)
     const [state, setState] = useState({
         region: {
             latitude: paramData?.location[0]?.latitude
@@ -209,19 +209,20 @@ function ChooseVechile({ navigation, route }) {
     const [cabBookingType, setCabBookingType] = useState('Booking')
     const [isCabBooking, setIsCabBooking] = useState(false)
     const [bottomSheetIndex, setBottomSheetIndex] = useState(0)
+    const [appliedGiftCardData, setAppliedGiftCardData] = useState(null)
 
     useFocusEffect(
         React.useCallback(() => {
             if (paramData && paramData?.selectedMethod) {
                 updateState({ selectedPayment: paramData?.selectedMethod });
             }
-            if(!!pickUpTimeType && pickUpTimeType != 'now'){
+            if (!!pickUpTimeType && pickUpTimeType != 'now') {
                 onDateSet(pickUpTimeType)
             }
-        }, [paramData,pickUpTimeType]),
+        }, [paramData, pickUpTimeType]),
     );
     useEffect(() => {
-        Geocoder.init(Platform.OS=='ios'?profile?.preferences?.map_key_for_ios_app||profile?.preferences?.map_key:profile?.preferences?.map_key_for_app|| profile?.preferences?.map_key, { language: 'en' }); // set the language
+        Geocoder.init(Platform.OS == 'ios' ? profile?.preferences?.map_key_for_ios_app || profile?.preferences?.map_key : profile?.preferences?.map_key_for_app || profile?.preferences?.map_key, { language: 'en' }); // set the language
         setTimeout(() => {
             onCenter();
         }, 3000);
@@ -272,12 +273,12 @@ function ChooseVechile({ navigation, route }) {
     }, [isVisibleMtnGateway])
 
     const onDateSet = useCallback((date) => {
-        let utcDate = moment.utc(date).format(); 
+        let utcDate = moment.utc(date).format();
         let dateSelected = moment.utc(date).format("YYYY-MM-DD");
         let timeSelected = moment.utc(date).format("HH:mm");
 
         const formattedDate = moment(date).format('YYYY-MM-DD hh:mm A');
-       
+
         setLocaDateTime(formattedDate)
         updateState({
             scheduleDateTime: {
@@ -330,8 +331,6 @@ function ChooseVechile({ navigation, route }) {
             language: languages?.primary_language?.id,
         }
 
-        console.log(apiData, "<===apiData")
-
         actions
             .getAllCarAndPrices(apiQuery, apiData, apiHeader)
             .then((res) => {
@@ -345,7 +344,7 @@ function ChooseVechile({ navigation, route }) {
                         pageNo == 1
                             ? res?.data?.products?.data
                             : [...availableCarList, ...res?.data?.products?.data],
-                    selectedCarOption:  res?.data?.products?.data[0],
+                    selectedCarOption: res?.data?.products?.data[0],
                     showBidPriceModal: (res?.data?.products?.data[0] && _isBidRide) ? true : false,
                     isLoading: false,
                     isRefreshing: false,
@@ -592,13 +591,13 @@ function ChooseVechile({ navigation, route }) {
             case 3: //paypal Payment Gatway
                 navigation.navigate(navigationStrings.PAYPAL, paymentData);
                 break
-            break;  
+                break;
             case 56: //Opay Payment Gatway
-            navigation.navigate(navigationStrings.OPAY, paymentData);
-            break;
+                navigation.navigate(navigationStrings.OPAY, paymentData);
+                break;
             case 69: //HitPay Payment Gatway
-            navigation.navigate(navigationStrings.HITPAY, paymentData);
-            break;
+                navigation.navigate(navigationStrings.HITPAY, paymentData);
+                break;
             default:
                 navigation.navigate(
                     navigationStrings.PICKUPTAXIORDERDETAILS,
@@ -765,7 +764,7 @@ function ChooseVechile({ navigation, route }) {
                         selectedCarOption: selectedCarOption?.sku,
                     };
                     console.log(extraData, data, "extraData, data");
-                    // actions.createOrderNotification({ order_id: res?.data?.id }, headers)
+                    actions.createOrderNotification({ order_id: res?.data?.id }, headers)
 
                     if (selectedPayment?.id == 49 || selectedPayment?.id == 50) { _paymentWithPlugnPayMethods(extraData, res, data) }
                     else if (selectedPayment?.id == 48) {
@@ -819,6 +818,9 @@ function ChooseVechile({ navigation, route }) {
         data["is_postpay"] = profile?.preferences?.is_postpay_enable
         if (couponInfo) {
             data['coupon_id'] = couponInfo?.id;
+        }
+        if (appliedGiftCardData) {
+            data['gift_card_code'] = appliedGiftCardData?.gift_card_code;
         }
         data['order_time_zone'] = RNLocalize.getTimeZone();
         data["is_cab_pooling"] = cabBookingType == 'Pooling' ? 1 : 0;
@@ -915,9 +917,9 @@ function ChooseVechile({ navigation, route }) {
             selectedCarOption: item,
             showBidPriceModal: cabBookingType == 'bidRide' ? true : false
         });
-        if (cabBookingType !== 'bidRide') {
-            setIsCabBooking(true)
-        }
+        // if (cabBookingType !== 'bidRide') {
+        //     setIsCabBooking(true)
+        // }
         setBidRidePrice(Number(item?.tags_price))
     };
 
@@ -983,7 +985,8 @@ function ChooseVechile({ navigation, route }) {
                         backgroundColor: isDarkMode
                             ? MyDarkTheme.colors.background
                             : colors.white,
-                        padding: moderateScale(16),
+                        paddingHorizontal: moderateScale(12),
+                        paddingTop: moderateScaleVertical(12),
                         // alignItems: 'center',
                         borderRadius: 8,
                         borderBottomLeftRadius: 0,
@@ -1048,7 +1051,10 @@ function ChooseVechile({ navigation, route }) {
                     borderRadius: 8,
                     borderBottomLeftRadius: 0,
                     borderBottomRightRadius: 0,
-                    marginTop: moderateScaleVertical(18)
+                    paddingTop: moderateScaleVertical(12),
+                    borderBottomWidth: 1,
+                    borderColor: colors.borderColorB,
+                    paddingBottom: moderateScaleVertical(12),
                 }}>
                 <View
                     style={{
@@ -1056,23 +1062,23 @@ function ChooseVechile({ navigation, route }) {
                     }}>
                     <View
                         style={{
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
-                        }}>
-                        <Image style={{ opacity: 0 }} source={imagePath.backArrowCourier} />
-                        <View
-                            style={{
-                                backgroundColor: isDarkMode
-                                    ? colors.whiteOpacity77
-                                    : colors.black,
-                                width: moderateScale(40),
-                                height: moderateScale(4),
-                                borderRadius: 8,
-                                marginRight: moderateScale(34),
-                            }}
-                        />
-                    </View>
+                            backgroundColor: isDarkMode
+                                ? colors.whiteOpacity77
+                                : colors.blackOpacity20,
+                            width: moderateScale(50),
+                            height: moderateScale(4),
+                            borderRadius: 8,
+                            marginBottom: moderateScaleVertical(12),
+                        }}
+                    />
+                    {showCarModal ? <Text style={{
+                        fontSize: textScale(16),
+                        fontFamily: fontFamily?.bold,
+                        color: isDarkMode ? colors.white : colors.black,
+                    }
+                    }>
+                        {strings.CHOOSE_A_TRIP}</Text>
+                        : null}
                 </View>
                 {!paramData?.rentalTime && (is_cab_pooling || is_bid_ride_enable) ? (
                     <View
@@ -1112,7 +1118,7 @@ function ChooseVechile({ navigation, route }) {
                         }
                     </View>
                 ) : null}
-                <View style={{ marginVertical: moderateScale(8) }}>
+                {/* <View style={{ marginVertical: moderateScale(8) }}>
                     {!isEmpty(availableVendors) ? (
                         <FlatList
                             horizontal
@@ -1135,7 +1141,7 @@ function ChooseVechile({ navigation, route }) {
                             showsHorizontalScrollIndicator={false}
                         />
                     ) : null}
-                </View>
+                </View> */}
             </View>
         );
     };
@@ -1353,7 +1359,6 @@ function ChooseVechile({ navigation, route }) {
                                 )
                             }} />
                         <View style={{
-                            flexDirection: "row",
                             justifyContent: "space-between",
                             width: "100%",
                             paddingHorizontal: moderateScale(28),
@@ -1483,6 +1488,8 @@ function ChooseVechile({ navigation, route }) {
                 allScreenParamsData={paramData}
                 distnce_unit={distance_unit_for_time}
                 paymentInfoAfterBidAccept={paramData}
+                onApplyGiftCard={(data) => setAppliedGiftCardData(data)}
+                removeGiftCard={() => setAppliedGiftCardData(null)}
             />
         );
     };
@@ -1507,10 +1514,10 @@ function ChooseVechile({ navigation, route }) {
         ) {
             mapRef.current.fitToCoordinates(paramData?.location, {
                 edgePadding: {
-                    right: 80,
-                    bottom: 500,
-                    left: 80,
-                    top: 80,
+                    right: 20,
+                    bottom: height/2,
+                    left: 20,
+                    top: 20,
                 },
             });
         }
@@ -1601,7 +1608,7 @@ function ChooseVechile({ navigation, route }) {
                     <Text style={{
                         fontFamily: fontFamily?.bold,
                         fontSize: textScale(20),
-                        flex:1,
+                        flex: 1,
                     }}> {selectedCarOption?.translation[0]?.title}</Text>
                     <Text
                         style={{
@@ -1660,8 +1667,11 @@ function ChooseVechile({ navigation, route }) {
                                 <Image style={{
                                     marginRight: moderateScale(8)
                                 }} source={imagePath.ic_close_circle} />
+
                             </Pressable> : null}
-                            {!paramData?.rentalTime && <GradientButton
+
+                            {!paramData?.rentalTime &&
+                             <GradientButton
                                 colorsArray={[colors.white, colors.white]}
                                 textStyle={{
                                     textTransform: "none",
@@ -1669,12 +1679,12 @@ function ChooseVechile({ navigation, route }) {
                                     color: themeColors?.primary_color,
                                 }}
                                 onPress={_openDateTimeModal}
-                                btnText={`${!!locaDateTime ? locaDateTime :  scheduleDateTime?.selectedDateAndTime
-                                ? `${scheduleDateTime?.selectedDateAndTime}`
-                                : slectedDate || selectedTime
-                                    ? `${slectedDate} ${selectedTime}`
-                                    : strings.SCHEDULE_A_RIDE
-                                }`}
+                                btnText={`${!!locaDateTime ? locaDateTime : scheduleDateTime?.selectedDateAndTime
+                                    ? `${scheduleDateTime?.selectedDateAndTime}`
+                                    : slectedDate || selectedTime
+                                        ? `${slectedDate} ${selectedTime}`
+                                        : strings.SCHEDULE_A_RIDE
+                                    }`}
                                 btnStyle={styles.scheduleBtnStyle}
                             />}
                         </View>
@@ -1701,7 +1711,7 @@ function ChooseVechile({ navigation, route }) {
                             }
                             btnText={
                                 selectedCarOption?.variant[0]?.price > 0
-                                    ? `${strings.CONFIRM} ${selectedCarOption?.translation[0]?.title}`
+                                    ? `${strings.CHOOSE} ${selectedCarOption?.translation[0]?.title}`
                                     : strings.NORIDEAVAILABLE
                             }
                             containerStyle={{ flex: 1 }}
@@ -1767,7 +1777,7 @@ function ChooseVechile({ navigation, route }) {
                                 : []
                         }
                         destination={paramData?.location[paramData?.location.length - 1]}
-                        apikey={Platform.OS=='ios'?profile?.preferences?.map_key_for_ios_app||profile?.preferences?.map_key:profile?.preferences?.map_key_for_app|| profile?.preferences?.map_key}
+                        apikey={Platform.OS == 'ios' ? profile?.preferences?.map_key_for_ios_app || profile?.preferences?.map_key : profile?.preferences?.map_key_for_app || profile?.preferences?.map_key}
                         strokeWidth={4}
                         strokeColor={colors.black}
                         optimizeWaypoints={true}
@@ -1792,7 +1802,7 @@ function ChooseVechile({ navigation, route }) {
                             });
                         }}
                         onError={(errorMessage) => {
-                            // console.log('GOT AN ERROR');
+                            console.log(errorMessage, 'errorMessage');
                         }}
                     />
                 </MapView>
@@ -1800,7 +1810,8 @@ function ChooseVechile({ navigation, route }) {
             <BottomSheet
                 ref={bottomSheetRef}
                 index={(!isEmpty(availableCarList) && availableCarList.length <= 2) ? bottomSheetIndex : 1}
-                snapPoints={[height / 1.6, height / 1.4]}
+                snapPoints={[height / 1.5, height / 1.5]}
+                enableOverDrag={false}
                 activeOffsetY={[-1, 1]}
                 failOffsetX={[-5, 5]}
                 animateOnMount={true}
@@ -1809,13 +1820,14 @@ function ChooseVechile({ navigation, route }) {
 
                 <BottomSheetScrollView
                     keyboardShouldPersistTaps="handled"
+                    nestedScrollEnabled={true}
                     showsVerticalScrollIndicator={false}
                     style={{
-                        marginBottom: moderateScaleVertical(10),
-                        height: height / 1.4,
+                        height: height / 1.5,
                         backgroundColor: isDarkMode
                             ? MyDarkTheme.colors.background
                             : colors.white,
+                            paddingTop: moderateScaleVertical(12),
                     }}>
                     <View
                         style={{
@@ -1852,6 +1864,7 @@ function ChooseVechile({ navigation, route }) {
                         {!!showCarModal && _selectCarModalView()}
                         {!!showPaymentModal && _selectPaymentView()}
                     </View>
+                    <View style={{ height: moderateScaleVertical(100) }} />
                 </BottomSheetScrollView>
             </BottomSheet>
 
@@ -2023,6 +2036,86 @@ function ChooseVechile({ navigation, route }) {
                     </View>
                 </View>
             </Modal>}
+            {selectedCarOption && showCarModal ?
+                <View
+                    style={{
+                        marginHorizontal: moderateScale(16),
+                        paddingBottom: moderateScale(24),
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        gap: moderateScale(10),
+                        position: 'absolute',
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        backgroundColor: isDarkMode ? MyDarkTheme.colors.background : colors.white,
+                    }}>
+                    {availableCarList?.length > 0 && (
+                        <GradientButton
+                            colorsArray={[
+                                colors.black,
+                                colors.black,
+                            ]}
+                            textStyle={{
+                                textTransform: "none",
+
+                                fontSize: textScale(14),
+
+                                marginHorizontal: moderateScale(5),
+                            }}
+                            onPress={
+                                selectedCarOption?.variant[0]?.price > 0
+                                    ? onPressPickUpNow
+                                    : () => { }
+                            }
+                            btnText={
+                                selectedCarOption?.variant[0]?.price > 0
+                                    ? `Confirm ${selectedCarOption?.translation[0]?.title}`
+                                    : strings.NORIDEAVAILABLE
+                            }
+                            containerStyle={{ flex: 1 ,
+                                borderWidth:isDarkMode ? 1 : 0,
+                                borderColor: isDarkMode ? colors.whiteOpacity50 : colors.black,
+                            }}
+                        />
+                    )}
+
+                    {availableCarList?.length > 0 && getBundleId() != appIds.appi && (
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            {!!scheduleDateTime?.selectedDateAndTime ? <Pressable
+                                onPress={clearScheduleDate}
+                                hitSlop={{
+                                    left: 40,
+                                    right: 40,
+                                    top: 40,
+                                    bottom: 40
+                                }}
+                            >
+                                <Image style={{
+                                    marginRight: moderateScale(8)
+                                }} source={imagePath.ic_close_circle} />
+                            </Pressable> : null}
+                            {!paramData?.rentalTime &&
+                                <TouchableOpacity style={{
+                                    height: moderateScale(46),
+                                    width: moderateScale(46),
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    borderRadius: moderateScale(8),
+                                    backgroundColor: colors.backgroundGrey,
+                                    borderWidth: 1,
+                                    borderColor: colors.blackOpacity86
+                                }}
+                                    onPress={_openDateTimeModal}>
+                                    <Image
+                                        source={imagePath.calendarB}
+                                        style={{ width: moderateScale(20), height: moderateScale(20), tintColor: colors.black }} />
+                                </TouchableOpacity>
+                            }
+                        </View>
+                    )}
+                </View>
+                : null}
         </View >
 
     );

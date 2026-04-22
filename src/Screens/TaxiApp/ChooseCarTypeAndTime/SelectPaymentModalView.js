@@ -37,9 +37,11 @@ import {
 import { MyDarkTheme } from '../../../styles/theme';
 import { tokenConverterPlusCurrencyNumberFormater } from '../../../utils/commonFunction';
 import { appIds } from '../../../utils/constants/DynamicAppKeys';
-import { getImageUrl } from '../../../utils/helperFunctions';
+import { getImageUrl, showError } from '../../../utils/helperFunctions';
 import { androidCameraPermission } from '../../../utils/permissions';
 import { getColorSchema } from '../../../utils/utils';
+import actions from '../../../redux/actions';
+import Toast from 'react-native-simple-toast';
 import stylesFun from './styles';
 
 
@@ -66,6 +68,8 @@ function SelectPaymentModalView({
   paymentInfoAfterBidAccept = {},
   totalDistance = 0,
   totalDuration = 0,
+  onApplyGiftCard = () => {},
+  removeGiftCard = () => {},
 }) {
   const theme = useSelector((state) => state?.initBoot?.themeColor);
   const toggleTheme = useSelector((state) => state?.initBoot?.themeToggle);
@@ -87,6 +91,10 @@ function SelectPaymentModalView({
   const [validationFucCalled, setvalidationFucCalled] = useState(true);
   const [faqModalLayoutHeight, setfaqModalLayoutHeight] = useState(null);
   const [selectedType, setSelectedType] = useState(null);
+  const [giftCardCode, setGiftCardCode] = useState('');
+  const [isApplying, setIsApplying] = useState(false);
+  const [giftCardApplied, setGiftCardApplied] = useState(false);
+  const [giftCardData, setGiftCardData] = useState(null);
 console.log(distance_matrix_app_status,'distance_matrix_app_status')
   const moveToNewScreen =
     (screenName, data = {}) =>
@@ -270,13 +278,15 @@ console.log(selectedCarOption,"selectedCarOptionselectedCarOptionselectedCarOpti
           :
           selectedCarOption
             ? `${tokenConverterPlusCurrencyNumberFormater(
-              Number(
+              Math.max(0, Number(
                 selectedCarOption?.total_tags_price
                   ? selectedCarOption?.total_tags_price -
-                  (updatedPrice ? updatedPrice : 0)
+                  (updatedPrice ? updatedPrice : 0) -
+                  (giftCardApplied ? Number(giftCardData?.discount_amount) : 0)
                   : selectedCarOption?.tags_price -
-                  (updatedPrice ? updatedPrice : 0),
-              ),
+                  (updatedPrice ? updatedPrice : 0) -
+                  (giftCardApplied ? Number(giftCardData?.discount_amount) : 0),
+              )),
               digit_after_decimal,
               additional_preferences,
               currencies?.primary_currency?.symbol,
@@ -724,6 +734,38 @@ console.log(selectedCarOption,"selectedCarOptionselectedCarOptionselectedCarOpti
         )}
 
 
+      {giftCardApplied && !!giftCardData?.discount_amount && (
+          <View
+            style={{
+              flexDirection: 'row',
+              marginHorizontal: moderateScale(20),
+              justifyContent: 'space-between',
+              marginVertical: moderateScale(16),
+            }}>
+            <Text
+              style={
+                isDarkMode
+                  ? [styles.distanceDurationDeliveryLable, { color: MyDarkTheme.colors.text }]
+                  : styles.distanceDurationDeliveryLable
+              }>
+              {strings.GIFT_CARD}
+            </Text>
+            <Text
+              style={
+                isDarkMode
+                  ? [styles.distanceDurationDeliveryValue, { color: colors.green }]
+                  : [styles.distanceDurationDeliveryValue, { color: colors.green }]
+              }>
+              {`- ${tokenConverterPlusCurrencyNumberFormater(
+                Number(giftCardData?.discount_amount),
+                digit_after_decimal,
+                additional_preferences,
+                currencies?.primary_currency?.symbol,
+              )}`}
+            </Text>
+          </View>
+        )}
+
           <View
             style={{
               flexDirection: 'row',
@@ -760,13 +802,15 @@ console.log(selectedCarOption,"selectedCarOptionselectedCarOptionselectedCarOpti
                     )}`
                   : selectedCarOption
                   ? `${tokenConverterPlusCurrencyNumberFormater(
-                      Number(
+                      Math.max(0, Number(
                         selectedCarOption?.total_tags_price
                           ? selectedCarOption?.total_tags_price -
-                              (updatedPrice ? updatedPrice : 0)
+                              (updatedPrice ? updatedPrice : 0) -
+                              (giftCardApplied ? Number(giftCardData?.discount_amount) : 0)
                           : selectedCarOption?.tags_price -
-                              (updatedPrice ? updatedPrice : 0),
-                      ),
+                              (updatedPrice ? updatedPrice : 0) -
+                              (giftCardApplied ? Number(giftCardData?.discount_amount) : 0),
+                      )),
                       digit_after_decimal,
                       additional_preferences,
                       currencies?.primary_currency?.symbol,
@@ -824,6 +868,115 @@ console.log(selectedCarOption,"selectedCarOptionselectedCarOptionselectedCarOpti
           </View>
         )}
       </TouchableOpacity>}
+
+      {/* Gift Card */}
+      { Number(selectedCarOption?.total_tags_price) != 0 && (
+        <View
+          style={{
+            ...styles.offersViewB,
+            marginHorizontal: moderateScale(17),
+          }}>
+          {giftCardApplied ? (
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+              <View style={{ flex: 0.7, flexDirection: 'row', alignItems: 'center' }}>
+                <Image
+                  style={{ tintColor: themeColors.primary_color }}
+                  source={imagePath.icGiftIcon}
+                />
+                <View style={{ marginLeft: moderateScale(10) }}>
+                  <Text numberOfLines={1} style={styles.viewOffers}>
+                    {giftCardData?.card_title || strings.GIFT_CARD_APPLIED}
+                  </Text>
+                  <Text style={{ fontSize: textScale(11), color: colors.green, fontFamily: fontFamily.regular }}>
+                    {`-${currencies?.primary_currency?.symbol}${giftCardData?.discount_amount}`}
+                  </Text>
+                </View>
+              </View>
+              <Text
+                onPress={() => {
+                  setGiftCardApplied(false);
+                  setGiftCardData(null);
+                  setGiftCardCode('');
+                  removeGiftCard();
+                }}
+                style={[styles.removeCoupon, { color: colors.cartItemPrice }]}>
+                {strings.REMOVE}
+              </Text>
+            </View>
+          ) : (
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Image
+                style={{ tintColor: themeColors.primary_color }}
+                source={imagePath.icGiftIcon}
+              />
+              <TextInput
+                value={giftCardCode}
+                onChangeText={setGiftCardCode}
+                placeholder={strings.ENTER_GIFT_CARD_CODE}
+                placeholderTextColor={isDarkMode ? colors.textGreyB : colors.blackOpacity40}
+                style={{
+                  flex: 1,
+                  marginLeft: moderateScale(10),
+                  fontSize: textScale(12),
+                  fontFamily: fontFamily.regular,
+                  color: isDarkMode ? MyDarkTheme.colors.text : colors.black,
+                  paddingVertical: moderateScaleVertical(4),
+                }}
+              />
+              <TouchableOpacity
+                disabled={isApplying}
+                onPress={async () => {
+                  if (!giftCardCode.trim()) return;
+                  Keyboard.dismiss();
+                  setIsApplying(true);
+                  try {
+                    const rideAmount = paymentInfoAfterBidAccept?.bidData && paymentInfoAfterBidAccept?.showPaymentModal
+                      ? Number(paymentInfoAfterBidAccept?.bidData?.bid_price)
+                      : Number(
+                          selectedCarOption?.total_tags_price
+                            ? selectedCarOption?.total_tags_price - (updatedPrice ? updatedPrice : 0)
+                            : selectedCarOption?.tags_price - (updatedPrice ? updatedPrice : 0),
+                        );
+                    const res = await actions.verifyGiftCard(
+                      { gift_card_code: giftCardCode.trim(), ride_amount: rideAmount },
+                      {
+                        code: appData?.profile?.code,
+                        currency: currencies?.primary_currency?.id,
+                      },
+                    );
+                    setGiftCardData(res?.data);
+                    setGiftCardApplied(true);
+                    onApplyGiftCard(res?.data);
+                    Toast.show(res?.message || strings.GIFT_CARD_APPLIED);
+                  } catch (error) {
+                    showError(error?.message);
+                  } finally {
+                    setIsApplying(false);
+                  }
+                }}
+                style={{
+                  backgroundColor: isApplying
+                    ? colors.blackOpacity30
+                    : themeColors.primary_color,
+                  borderRadius: moderateScale(4),
+                  paddingHorizontal: moderateScale(12),
+                  paddingVertical: moderateScaleVertical(6),
+                  marginLeft: moderateScale(8),
+                }}>
+                <Text
+                  style={{
+                    color: colors.white,
+                    fontSize: textScale(11),
+                    fontFamily: fontFamily.medium,
+                  }}>
+                  {isApplying ? '...' : strings.APPLYSMALL}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          )}
+        </View>
+      )}
+
       {/* select payment method */}
       <TouchableOpacity
         onPress={redirectToPayement}

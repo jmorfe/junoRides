@@ -464,6 +464,21 @@ export default function Account4({ navigation }) {
           />
         )}
 
+        {!!userData?.auth_token && (
+          <ListItemHorizontal
+            centerContainerStyle={{ flexDirection: "row" }}
+            leftIconStyle={{ flex: 0.1, alignItems: "center" }}
+            onPress={moveToNewScreen(navigationStrings.GIFT_CARD)}
+            iconLeft={imagePath.giftIcon}
+            centerHeading={strings.GIFT_CARD}
+            containerStyle={styles.containerStyle2}
+            centerHeadingStyle={{
+              fontSize: textScale(14),
+              fontFamily: fontFamily.regular,
+            }}
+          />
+        )}
+
         {/* {!!userData?.auth_token && (
           <ListItemHorizontal
             centerContainerStyle={{flexDirection: 'row'}}

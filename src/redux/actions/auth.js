@@ -34,6 +34,9 @@ import {
   GET_USER_PROFILE,
   DELETE_ACCOUNT,
   LOGOUT_API,
+  GET_GIFT_CARDS,
+  VERIFY_GIFT_CARD,
+  BUY_GIFT_CARD_URL,
 } from '../../config/urls';
 import {apiGet, apiPost, clearUserData, setUserData} from '../../utils/utils';
 import store from '../store';
@@ -441,6 +444,42 @@ export function cancelSubscriptionPlan(query = '', data = {}, headers = {}) {
 export function getLoyaltyInfo(data = {}, headers = {}) {
   return new Promise((resolve, reject) => {
     apiGet(GET_LOYALTY_INFO, data, headers)
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+}
+
+export function getGiftCards(data = {}, headers = {}) {
+  return new Promise((resolve, reject) => {
+    apiGet(GET_GIFT_CARDS, data, headers)
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+}
+
+export function verifyGiftCard(data = {}, headers = {}) {
+  return new Promise((resolve, reject) => {
+    apiPost(VERIFY_GIFT_CARD, data, headers)
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+}
+
+export function buyGiftCard(data = {}, headers = {}) {
+  return new Promise((resolve, reject) => {
+    apiPost(BUY_GIFT_CARD_URL, data, headers)
       .then((res) => {
         resolve(res);
       })

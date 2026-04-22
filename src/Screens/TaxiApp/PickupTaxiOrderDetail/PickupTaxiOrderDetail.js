@@ -339,7 +339,7 @@ function PickupTaxiOrderDetail({ navigation, route }) {
     () => {
       if (urlValue) {
         _updateDriverLocationLocation(urlValue);
-        if(orderFullDetail?.order_details?.order_detail?.bid_number){
+        if (orderFullDetail?.order_details?.order_detail?.bid_number) {
           _onOrderBidRideDetails()
         }
 
@@ -1511,7 +1511,7 @@ function PickupTaxiOrderDetail({ navigation, route }) {
           >
             <Text style={styles.statusText}>
               {tokenConverterPlusCurrencyNumberFormater(
-                Number(orderFullDetail.order_details?.payable_amount),
+                Math.max(0, Number(orderFullDetail.order_details?.payable_amount)),
                 digit_after_decimal,
                 additional_preferences,
                 currencies?.primary_currency?.symbol
@@ -2321,7 +2321,52 @@ function PickupTaxiOrderDetail({ navigation, route }) {
                 <View style={styles.horizontalLine} />
               </View>
             )}
-              {!!orderFullDetail?.order_details?.wallet_amount_used &&
+          {console.log(orderFullDetail?.order_details?.order_detail, "gift_card_amount")}
+          {!!orderFullDetail?.order_details?.order_detail?.gift_card_amount &&
+            Number(orderFullDetail?.order_details?.order_detail?.gift_card_amount) !==
+            0 && (
+              <View>
+                <LeftRightText
+                  leftText={strings.GIFT_CARD_DISCOUNT}
+                  rightText={` ${tokenConverterPlusCurrencyNumberFormater(
+                    Number(
+                      orderFullDetail?.order_details?.order_detail?.gift_card_amount
+                    ),
+                    digit_after_decimal,
+                    additional_preferences,
+                    currencies?.primary_currency?.symbol
+                  )}`}
+                  isDarkMode={isDarkMode}
+                  MyDarkTheme={MyDarkTheme}
+                  marginBottom={0}
+                />
+                <View style={styles.horizontalLine} />
+              </View>
+            )}
+          {!!orderFullDetail?.order_details?.order_detail?.loyalty_amount_saved
+            &&
+            Number(orderFullDetail?.order_details?.order_detail?.loyalty_amount_saved
+            ) !==
+            0 && (
+              <View>
+                <LeftRightText
+                  leftText={strings.LOYALTY_DISCOUNT}
+                  rightText={` ${tokenConverterPlusCurrencyNumberFormater(
+                    Number(
+                      orderFullDetail?.order_details?.order_detail?.loyalty_amount_saved
+                    ),
+                    digit_after_decimal,
+                    additional_preferences,
+                    currencies?.primary_currency?.symbol
+                  )}`}
+                  isDarkMode={isDarkMode}
+                  MyDarkTheme={MyDarkTheme}
+                  marginBottom={0}
+                />
+                <View style={styles.horizontalLine} />
+              </View>
+            )}
+          {!!orderFullDetail?.order_details?.wallet_amount_used &&
             Number(orderFullDetail?.order_details?.wallet_amount_used) !==
             0 && (
               <View>
@@ -2469,17 +2514,15 @@ function PickupTaxiOrderDetail({ navigation, route }) {
               </View>
             )}
 
-          {!!orderFullDetail?.order_details?.payable_amount &&
-            Number(orderFullDetail?.order_details?.payable_amount) !==
-            0 && (
+          {!!orderFullDetail?.order_details?.payable_amount && (
               <View>
                 <LeftRightText
                   leftText={strings.TOTAL}
                   rightText={` ${tokenConverterPlusCurrencyNumberFormater(
-                    Number(
+                    Math.max(0, Number(
                       orderFullDetail?.order_details?.order_detail
                         ?.payable_amount
-                    ),
+                    )),
                     digit_after_decimal,
                     additional_preferences,
                     currencies?.primary_currency?.symbol
@@ -2618,7 +2661,7 @@ function PickupTaxiOrderDetail({ navigation, route }) {
                         : tasks[tasks.length - 1]
                     }
                     // destination={tasks[tasks.length - 1]}
-                    apikey={Platform.OS=='ios'?profile?.preferences?.map_key_for_ios_app||profile?.preferences?.map_key:profile?.preferences?.map_key_for_app|| profile?.preferences?.map_key}
+                    apikey={Platform.OS == 'ios' ? profile?.preferences?.map_key_for_ios_app || profile?.preferences?.map_key : profile?.preferences?.map_key_for_app || profile?.preferences?.map_key}
                     strokeWidth={4}
                     strokeColor={colors.black}
                     optimizeWaypoints={true}

@@ -7,7 +7,7 @@ const shortCodes = {
 
 const appIds = {
   junoRide: Platform.select({
-    ios: 'com.junoRide.order',
+    ios: 'com.junoRide.orders',
     android: 'com.junoRide.order',
   }),
 };

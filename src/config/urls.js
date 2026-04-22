@@ -442,3 +442,6 @@ export const PRODUCT_CHECK_AVAILABILITY = getApiUrl('/check-product-availability
 export const CREATE_ORDER_NOTIFICATION = getApiUrl('/pickup-delivery/create-order-notifications'); //<--------- driver notification endpoint
 export const GET_HOURLY_BASE_PRICE = getApiUrl('/get-hourly-base-price'); 
 export const LOGOUT_API = getApiUrl('/auth/logout')
+export const GET_GIFT_CARDS = getApiUrl('/giftCard/my-cards')
+export const VERIFY_GIFT_CARD = getApiUrl('/pickup-delivery/gift-card/verify')
+export const BUY_GIFT_CARD_URL = getApiUrl('/giftCard/buy')

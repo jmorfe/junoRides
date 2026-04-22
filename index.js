@@ -11,6 +11,9 @@ import actions from './src/redux/actions';
 import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
 LogBox.ignoreAllLogs();
 
+if (__DEV__) {
+    require("./ReactotronConfig");
+  }
 
 // Register background handler
 messaging().setBackgroundMessageHandler(async (remoteMessage) => {

@@ -7,6 +7,9 @@ import {
   Account2,
   Account3,
   Account4,
+  Giftcard,
+  BuyGiftcard,
+  BuyGiftcardPayment,
   AddMoney,
   AddProduct,
   AllinonePyments,
@@ -270,6 +273,18 @@ export default function ({ navigation }) {
       <Stack.Screen
         name={navigationStrings.SAVED_PAYMENT_CARDS}
         component={SavedPaymentCards}
+      />
+      <Stack.Screen
+        name={navigationStrings.GIFT_CARD}
+        component={Giftcard}
+      />
+      <Stack.Screen
+        name={navigationStrings.BUY_GIFT_CARD}
+        component={BuyGiftcard}
+      />
+      <Stack.Screen
+        name={navigationStrings.BUY_GIFT_CARD_PAYMENT}
+        component={BuyGiftcardPayment}
       />
     </Stack.Navigator>
   );

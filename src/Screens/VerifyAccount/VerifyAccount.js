@@ -3,6 +3,7 @@ import {
   I18nManager,
   Image,
   Keyboard,
+  Platform,
   Text,
   TouchableOpacity,
   View,
@@ -10,7 +11,7 @@ import {
 import CountryPicker, { Flag } from 'react-native-country-picker-modal';
 import { TextInput } from 'react-native-gesture-handler';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import RNOtpVerify from 'react-native-otp-verify';
+const RNOtpVerify = Platform.OS === 'android' ? require('react-native-otp-verify').default : null;
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
 import { useSelector } from 'react-redux';
 import WrapperContainer from '../../Components/WrapperContainer';

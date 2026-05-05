@@ -31,7 +31,7 @@ import {
 } from '../../utils/helperFunctions';
 import validations from '../../utils/validations';
 import stylesFunc from './styles';
-import RNOtpVerify from 'react-native-otp-verify';
+const RNOtpVerify = Platform.OS === 'android' ? require('react-native-otp-verify').default : null;
 import { enableFreeze } from "react-native-screens";
 enableFreeze(true);
 

@@ -14,7 +14,7 @@ import DeviceCountry from 'react-native-device-country';
 import DeviceInfo from 'react-native-device-info';
 import { pick } from '@react-native-documents/picker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import RNOtpVerify from 'react-native-otp-verify';
+const RNOtpVerify = Platform.OS === 'android' ? require('react-native-otp-verify').default : null;
 import { useSelector } from 'react-redux';
 import BorderTextInput from '../../Components/BorderTextInput';
 import GradientButton from '../../Components/GradientButton';

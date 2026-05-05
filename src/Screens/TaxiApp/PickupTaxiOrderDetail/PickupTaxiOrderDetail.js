@@ -2784,124 +2784,128 @@ function PickupTaxiOrderDetail({ navigation, route }) {
           />
         </View>
       </Modal>
-      <Modal
-        isVisible={isCancleModal}
-        onBackdropPress={hideModal}
-        // animationIn="zoomIn"
-        // animationOut="zoomOut"
-        style={{
-          margin: 0,
-          justifyContent: "flex-end",
-        }}
-      >
+      {isCancleModal && (
         <View
           style={{
-            backgroundColor: isDarkMode
-              ? MyDarkTheme.colors.lightDark
-              : colors.white,
-            borderRadius: moderateScale(8),
-            overflow: "hidden",
-            paddingHorizontal: moderateScale(16),
-            paddingVertical: moderateScale(12),
-            marginBottom:
-              Platform.OS == "ios" ? moderateScale(keyboardHeight) : 0,
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: 9999,
+            elevation: 9999,
+            justifyContent: "flex-end",
           }}
         >
-          <View
+          <TouchableOpacity
             style={{
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "space-between",
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: "rgba(0,0,0,0.5)",
             }}
-          >
-            <Text />
-            <Text
-              style={{
-                fontSize: textScale(16),
-                color: isDarkMode ? MyDarkTheme.colors.text : colors.black,
-                alignSelf: "center",
-                fontFamily: fontFamily.medium,
-              }}
-            >
-              {strings.CANCELLATION_REASON}
-            </Text>
-            <TouchableOpacity onPress={hideModal}>
-              <Image
-                style={isDarkMode && { tintColor: colors.white }}
-                source={imagePath.closeButton}
-              />
-            </TouchableOpacity>
-          </View>
-          {!!orderCancelMessage && (
-            <Text style={{ alignSelf: "center", color: colors.redB }}>
-              {orderCancelMessage}
-            </Text>
-          )}
-          {/* {!!reasonError && (
-            <Text
-              style={{
-                fontSize: textScale(12),
-                color: colors.redB,
-                fontFamily: fontFamily.medium,
-                marginTop: moderateScaleVertical(8),
-              }}>
-              {strings.REQUIRED}*{' '}
-            </Text>
-          )} */}
-
-          {!!cancelError ? (
-            <Text
-              style={{
-                fontSize: textScale(11),
-                fontFamily: fontFamily.medium,
-                color: colors.redB,
-                marginTop: !!cancelError ? moderateScaleVertical(16) : 0,
-                marginBottom: moderateScaleVertical(4),
-              }}
-            >
-              {cancelError}*
-            </Text>
-          ) : null}
+            activeOpacity={1}
+            onPress={hideModal}
+          />
           <View
             style={{
-              // marginVertical: moderateScaleVertical(16),
               backgroundColor: isDarkMode
-                ? colors.whiteOpacity15
-                : colors.greyNew,
-              height: moderateScale(82),
-              borderRadius: moderateScale(4),
-              paddingHorizontal: moderateScale(8),
-              marginTop: !!cancelError ? 0 : moderateScaleVertical(16),
+                ? MyDarkTheme.colors.lightDark
+                : colors.white,
+              borderTopLeftRadius: moderateScale(8),
+              borderTopRightRadius: moderateScale(8),
+              paddingHorizontal: moderateScale(16),
+              paddingVertical: moderateScale(12),
+              paddingBottom: Platform.OS == "ios"
+                ? moderateScale(keyboardHeight) || moderateScaleVertical(24)
+                : moderateScaleVertical(24),
             }}
           >
-            <TextInput
-              multiline
-              value={reason}
-              placeholder={strings.WRITE_YOUR_REASON_HERE}
-              onChangeText={(val) => updateState({ reason: val })}
+            <View
               style={{
-                ...styles.reasonText,
-                color: isDarkMode ? colors.textGreyB : colors.black,
-                textAlignVertical: "top",
-                flex: 1,
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
               }}
-              onSubmitEditing={Keyboard.dismiss}
-              placeholderTextColor={
-                isDarkMode ? colors.textGreyB : colors.blackOpacity40
-              }
+            >
+              <Text />
+              <Text
+                style={{
+                  fontSize: textScale(16),
+                  color: isDarkMode ? MyDarkTheme.colors.text : colors.black,
+                  alignSelf: "center",
+                  fontFamily: fontFamily.medium,
+                }}
+              >
+                {strings.CANCELLATION_REASON}
+              </Text>
+              <TouchableOpacity onPress={hideModal}>
+                <Image
+                  style={isDarkMode && { tintColor: colors.white }}
+                  source={imagePath.closeButton}
+                />
+              </TouchableOpacity>
+            </View>
+            {!!orderCancelMessage && (
+              <Text style={{ alignSelf: "center", color: colors.redB }}>
+                {orderCancelMessage}
+              </Text>
+            )}
+            {!!cancelError ? (
+              <Text
+                style={{
+                  fontSize: textScale(11),
+                  fontFamily: fontFamily.medium,
+                  color: colors.redB,
+                  marginTop: moderateScaleVertical(16),
+                  marginBottom: moderateScaleVertical(4),
+                }}
+              >
+                {cancelError}*
+              </Text>
+            ) : null}
+            <View
+              style={{
+                backgroundColor: isDarkMode
+                  ? colors.whiteOpacity15
+                  : colors.greyNew,
+                height: moderateScale(82),
+                borderRadius: moderateScale(4),
+                paddingHorizontal: moderateScale(8),
+                marginTop: !!cancelError ? 0 : moderateScaleVertical(16),
+              }}
+            >
+              <TextInput
+                multiline
+                value={reason}
+                placeholder={strings.WRITE_YOUR_REASON_HERE}
+                onChangeText={(val) => updateState({ reason: val })}
+                style={{
+                  ...styles.reasonText,
+                  color: isDarkMode ? colors.textGreyB : colors.black,
+                  textAlignVertical: "top",
+                  flex: 1,
+                }}
+                onSubmitEditing={Keyboard.dismiss}
+                placeholderTextColor={
+                  isDarkMode ? colors.textGreyB : colors.blackOpacity40
+                }
+              />
+            </View>
+            <ButtonWithLoader
+              isLoading={isBtnLoader}
+              btnText={strings.CANCEL}
+              btnStyle={{
+                backgroundColor: themeColors.primary_color,
+                borderWidth: 0,
+              }}
+              onPress={() => onCancelOrder(false)}
             />
           </View>
-          <ButtonWithLoader
-            isLoading={isBtnLoader}
-            btnText={strings.CANCEL}
-            btnStyle={{
-              backgroundColor: themeColors.primary_color,
-              borderWidth: 0,
-            }}
-            onPress={() => onCancelOrder(false)}
-          />
         </View>
-      </Modal>
+      )}
       <Modal isVisible={bidBookModalVisible} style={{ justifyContent: 'flex-start', paddingTop: moderateScaleVertical(20) }}>
         <View style={{ width: width, alignSelf: 'center' }}>
           <FlatList

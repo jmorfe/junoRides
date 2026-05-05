@@ -53,7 +53,7 @@ DeviceCountry.getCountryCode()
     console.log(e);
   });
 
-import RNOtpVerify from 'react-native-otp-verify';
+const RNOtpVerify = Platform.OS === 'android' ? require('react-native-otp-verify').default : null;
 import { getValuebyKeyInArray } from '../../utils/commonFunction';
 import { appIds } from '../../utils/constants/DynamicAppKeys';
 import { getColorSchema, setUserData } from '../../utils/utils';

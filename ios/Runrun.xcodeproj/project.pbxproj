@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* RunrunTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* RunrunTests.m */; };
+		2FC95239319FB1BF35780E8A /* Pods_available_pods_JunoRide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F0B411BE2BCA85F21D6CE8D /* Pods_available_pods_JunoRide.framework */; };
 		4E2853DD2DE08742003279A3 /* Royo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F4679626A7F27500D378D5 /* Royo.swift */; };
 		4E2853E32DE08742003279A3 /* Eina02-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8455CA3826DFBC2200C27F72 /* Eina02-Regular.ttf */; };
 		4E2853E52DE08742003279A3 /* SFProDisplay-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 846DA78C2681E47000CC5BA2 /* SFProDisplay-Regular.ttf */; };
@@ -37,7 +38,6 @@
 		4E2854112DE087B9003279A3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4E28540C2DE087B9003279A3 /* GoogleService-Info.plist */; };
 		5399BB1A2F3DBAEB006BBFB0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5399BB192F3DBAEB006BBFB0 /* AppDelegate.swift */; };
 		7D452EC756BF1E1FB8129475 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 95CDC20132E7AE20DED04A43 /* PrivacyInfo.xcprivacy */; };
-		8E4EA0EF36DB590B6BE96536 /* Pods_available_pods_JunoRide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C66518CA36307EF23931CA4 /* Pods_available_pods_JunoRide.framework */; };
 		EE0B94E72E55DEF20076E67B /* FBAEMKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E2854162DE08BEE003279A3 /* FBAEMKit.xcframework */; };
 		EE0B94E82E55DEF20076E67B /* FBAEMKit.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E2854162DE08BEE003279A3 /* FBAEMKit.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EE0B94E92E55DEF20076E67B /* FBSDKCoreKit_Basics.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E2854172DE08BEE003279A3 /* FBSDKCoreKit_Basics.xcframework */; };
@@ -76,6 +76,7 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* RunrunTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RunrunTests.m; sourceTree = "<group>"; };
 		2D02E4901E0B4A5D006451C7 /* Runrun-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Runrun-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D79B178FE38026CB32FDF38 /* Pods-available_pods-JunoRide.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-available_pods-JunoRide.debug.xcconfig"; path = "Target Support Files/Pods-available_pods-JunoRide/Pods-available_pods-JunoRide.debug.xcconfig"; sourceTree = "<group>"; };
 		2FEEBC7D693CF7C253E929F2 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		4E2854042DE08742003279A3 /* JunoRide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JunoRide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E28540A2DE087B9003279A3 /* JunoRide(Development).xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "JunoRide(Development).xcconfig"; sourceTree = "<group>"; };
@@ -97,8 +98,6 @@
 		4E28541E2DE08BEE003279A3 /* Razorpay.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:3J5MJT3GNL:Razorpay Software Private Limited"; lastKnownFileType = wrapper.xcframework; name = Razorpay.xcframework; path = "Pods/razorpay-pod/Pod/Razorpay.xcframework"; sourceTree = "<group>"; };
 		4E28541F2DE08BEE003279A3 /* SDKConfigurations.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = SDKConfigurations.xcframework; path = Pods/ZendeskSDKConfigurationsSDK/SDKConfigurations.xcframework; sourceTree = "<group>"; };
 		5399BB192F3DBAEB006BBFB0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		6C66518CA36307EF23931CA4 /* Pods_available_pods_JunoRide.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_available_pods_JunoRide.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		760CF93F8FA54722F603851E /* Pods-available_pods-JunoRide.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-available_pods-JunoRide.debug.xcconfig"; path = "Target Support Files/Pods-available_pods-JunoRide/Pods-available_pods-JunoRide.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Runrun/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		844FDD1C2673989300C16835 /* CircularStd-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CircularStd-Bold.ttf"; sourceTree = "<group>"; };
 		844FDD1D2673989300C16835 /* CircularStd-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CircularStd-Medium.otf"; sourceTree = "<group>"; };
@@ -128,7 +127,8 @@
 		84EA41D426393EE20078E919 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		84F4679626A7F27500D378D5 /* Royo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Royo.swift; sourceTree = "<group>"; };
 		95CDC20132E7AE20DED04A43 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		DAEE0B773453F4827F32EC6B /* Pods-available_pods-JunoRide.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-available_pods-JunoRide.release.xcconfig"; path = "Target Support Files/Pods-available_pods-JunoRide/Pods-available_pods-JunoRide.release.xcconfig"; sourceTree = "<group>"; };
+		9F0B411BE2BCA85F21D6CE8D /* Pods_available_pods_JunoRide.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_available_pods_JunoRide.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9F3EEBF6AD30B6D65DC541F7 /* Pods-available_pods-JunoRide.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-available_pods-JunoRide.release.xcconfig"; path = "Target Support Files/Pods-available_pods-JunoRide/Pods-available_pods-JunoRide.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		FE4DB54D2A43301B0015DBB9 /* AceDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AceDebug.entitlements; sourceTree = "<group>"; };
@@ -160,7 +160,7 @@
 				EE0B94EF2E55DEF20076E67B /* FBSDKLoginKit.xcframework in Frameworks */,
 				EE0B94EB2E55DEF20076E67B /* FBSDKCoreKit.xcframework in Frameworks */,
 				EE0B94E72E55DEF20076E67B /* FBAEMKit.xcframework in Frameworks */,
-				8E4EA0EF36DB590B6BE96536 /* Pods_available_pods_JunoRide.framework in Frameworks */,
+				2FC95239319FB1BF35780E8A /* Pods_available_pods_JunoRide.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,8 +206,8 @@
 		293CCC036299F75712B8E1E3 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				DAEE0B773453F4827F32EC6B /* Pods-available_pods-JunoRide.release.xcconfig */,
-				760CF93F8FA54722F603851E /* Pods-available_pods-JunoRide.debug.xcconfig */,
+				9F3EEBF6AD30B6D65DC541F7 /* Pods-available_pods-JunoRide.release.xcconfig */,
+				2D79B178FE38026CB32FDF38 /* Pods-available_pods-JunoRide.debug.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -235,7 +235,7 @@
 				84EA41CC26393E950078E919 /* libRNGoogleSignin.a */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				6C66518CA36307EF23931CA4 /* Pods_available_pods_JunoRide.framework */,
+				9F0B411BE2BCA85F21D6CE8D /* Pods_available_pods_JunoRide.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -382,7 +382,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4E2854012DE08742003279A3 /* Build configuration list for PBXNativeTarget "JunoRide" */;
 			buildPhases = (
-				1864FB88A1D2772D904F2D5F /* [CP] Check Pods Manifest.lock */,
+				D1A7FBAF1EA84663ECF04C80 /* [CP] Check Pods Manifest.lock */,
 				4E2853DA2DE08742003279A3 /* Start Packager */,
 				4E2853DB2DE08742003279A3 /* Sources */,
 				4E2853DF2DE08742003279A3 /* Frameworks */,
@@ -390,8 +390,8 @@
 				4E2853FD2DE08742003279A3 /* Bundle React Native code and images */,
 				4E2853FE2DE08742003279A3 /* Start Packager */,
 				EE0B94F92E55DEF20076E67B /* Embed Frameworks */,
-				F19808AAA9F3C054483C5BC8 /* [CP] Embed Pods Frameworks */,
-				8FC22924800BC391697A43D4 /* [CP] Copy Pods Resources */,
+				371CB484E6E9DA25EAAD4A45 /* [CP] Embed Pods Frameworks */,
+				6213A764233469B809C393BA /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -495,7 +495,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1864FB88A1D2772D904F2D5F /* [CP] Check Pods Manifest.lock */ = {
+		371CB484E6E9DA25EAAD4A45 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -503,18 +503,15 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
 			);
-			name = "[CP] Check Pods Manifest.lock";
+			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-available_pods-JunoRide-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-available_pods-JunoRide/Pods-available_pods-JunoRide-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		4E2853DA2DE08742003279A3 /* Start Packager */ = {
@@ -548,7 +545,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
+			shellScript = "export NODE_BINARY=/Users/codebrew/.nvm/versions/node/v20.20.0/bin/node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
 		4E2853FE2DE08742003279A3 /* Start Packager */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -585,38 +582,45 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-available_pods-JunoRide/Pods-available_pods-JunoRide-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8FC22924800BC391697A43D4 /* [CP] Copy Pods Resources */ = {
+		6213A764233469B809C393BA /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-available_pods-JunoRide/Pods-available_pods-JunoRide-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			inputPaths = (
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-available_pods-JunoRide/Pods-available_pods-JunoRide-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-available_pods-JunoRide/Pods-available_pods-JunoRide-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F19808AAA9F3C054483C5BC8 /* [CP] Embed Pods Frameworks */ = {
+		D1A7FBAF1EA84663ECF04C80 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-available_pods-JunoRide/Pods-available_pods-JunoRide-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-available_pods-JunoRide/Pods-available_pods-JunoRide-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-available_pods-JunoRide-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-available_pods-JunoRide/Pods-available_pods-JunoRide-frameworks.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -773,11 +777,9 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = JunoRide.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = "$(PROJECT_BUILD_NUMBER)";
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 7CRUVQ38A5;
+				DEVELOPMENT_TEAM = 7CRUVQ38A5;
 				INFOPLIST_FILE = "$(SRCROOT)/Runrun/Plists/JunoRideInfo.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -790,14 +792,12 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "$(PROJECT_BUNDLE_ID)";
-				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = com.junoRide.orders;
+				PRODUCT_BUNDLE_IDENTIFIER = com.junoRide.orders;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROJECT_DEEPLINK = "${PROJECT_DEEPLINK}";
 				PROJECT_ENTITLEMENT = "";
 				PROJECT_PLIST = "$(PROJECT_PLIST)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Junoride order";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -818,12 +818,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = "$(PROJECT_BUILD_NUMBER)";
-				DEVELOPMENT_TEAM = 6FXUMT5X23;
+				DEVELOPMENT_TEAM = 7CRUVQ38A5;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = "$(SRCROOT)/Runrun/Plists/JunoRideInfo.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "$(PROJECT_BUNDLE_ID)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.junoRide.orders;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

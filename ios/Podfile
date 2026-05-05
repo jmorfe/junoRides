@@ -75,6 +75,26 @@ end
 
 
 post_install do |installer|
+  # Fix: react-native-date-picker 5.0.13 calls install_modules_dependencies but
+  # its iOS files never implemented RCTModuleProvider, causing a runtime crash
+  # on New Architecture. Remove the New Arch dependencies from its podspec.
+  date_picker_podspec = File.join(__dir__, '../node_modules/react-native-date-picker/react-native-date-picker.podspec')
+  if File.exist?(date_picker_podspec)
+    content = File.read(date_picker_podspec)
+    patched = content.gsub(/\n\s*if ENV\['RCT_NEW_ARCH_ENABLED'\].*?end\n/m, "\n")
+    File.write(date_picker_podspec, patched) if patched != content
+  end
+
+  # Fix: STPPaymentStatus is declared as Int (NSInteger) in StripePayments but
+  # StripeSwiftInterop.h incorrectly forward-declares it as NSUInteger, causing
+  # "Enumeration redeclared with different underlying type" on Xcode 16.
+  stripe_interop = File.join(__dir__, '../node_modules/@stripe/stripe-react-native/ios/StripeSwiftInterop.h')
+  if File.exist?(stripe_interop)
+    content = File.read(stripe_interop)
+    patched = content.gsub('typedef NS_ENUM(NSUInteger, STPPaymentStatus);', 'typedef NS_ENUM(NSInteger, STPPaymentStatus);')
+    File.write(stripe_interop, patched) if patched != content
+  end
+
   # https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L197-L202
   react_native_post_install(
     installer,
@@ -99,8 +119,42 @@ post_install do |installer|
   end
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
+      config.build_settings['COMPILER_INDEX_STORE_ENABLE'] = 'NO'
+      config.build_settings['CLANG_ENABLE_EXPLICIT_MODULES'] = 'NO'
+    end
+  end
+  installer.pods_project.targets.each do |target|
+    if target.name == 'stripe-react-native' || target.name.start_with?('Stripe')
+      target.build_configurations.each do |config|
+        config.build_settings['OTHER_SWIFT_FLAGS'] = '$(inherited) -suppress-warnings'
+        config.build_settings['SWIFT_TREAT_WARNINGS_AS_ERRORS'] = 'NO'
+        config.build_settings['GCC_WARN_INHIBIT_ALL_WARNINGS'] = 'YES'
+      end
+    end
+  end
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
       config.build_settings['ENABLE_BITCODE'] = 'NO'
     end
+  end
+  installer.pods_project.build_configurations.each do |config|
+    config.build_settings['CLANG_CXX_LANGUAGE_STANDARD'] = 'gnu++20'
+  end
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['CLANG_CXX_LANGUAGE_STANDARD'] = 'gnu++20'
+    end
+  end
+
+  # fmt 11.x enables consteval on Apple Clang >= 14, but the consteval
+  # format-string checker is broken with how Folly calls it in RN 0.79.
+  # Patch base.h directly — preprocessor -D flags can't override because
+  # base.h unconditionally redefines FMT_USE_CONSTEVAL after detection.
+  fmt_base_h = File.join(installer.sandbox.root, "fmt/include/fmt/base.h")
+  if File.exist?(fmt_base_h)
+    content = File.read(fmt_base_h)
+    patched = content.gsub('#  define FMT_USE_CONSTEVAL 1', '#  define FMT_USE_CONSTEVAL 0')
+    File.write(fmt_base_h, patched) if patched != content
   end
 end
 end

@@ -28,7 +28,7 @@ const CustomBottomTabBarTwo = ({
   const styles = stylesData({ fontFamily, themeColors });
 
   return (
-    <View style={[styles.tabBarStyle]}>
+    <View style={[styles.tabBarStyle, { bottom: moderateScaleVertical(10) + insets.bottom }]}>
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
         const isFocused = state.index === index;

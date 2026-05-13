@@ -10,6 +10,7 @@ import {
   View,
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useSelector } from 'react-redux';
 import staticStrings from '../constants/staticStrings';
 import navigationStrings from '../navigation/navigationStrings';
@@ -35,6 +36,7 @@ const CustomBottomTabBarThree = ({
 
   ...props
 }) => {
+  const insets = useSafeAreaInsets();
   const {appStyle, themeColors} = useSelector((state) => state?.initBoot);
   const userData = useSelector((state) => state?.auth?.userData);
   const theme = useSelector((state) => state?.initBoot?.themeColor);
@@ -162,6 +164,7 @@ const CustomBottomTabBarThree = ({
           height: minHeight,
           width: minWidth,
           overflow: 'hidden',
+          bottom: (Platform.OS === 'ios' ? moderateScale(15) : moderateScale(3)) + insets.bottom,
         },
       ]}>
       <View

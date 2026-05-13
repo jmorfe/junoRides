@@ -62,7 +62,7 @@ import PaymentProcessingModal from '../../CourierService/PaymentProcessingModal'
 import SelectPaymentModalView from '../../TaxiApp/ChooseCarTypeAndTime/SelectPaymentModalView';
 import AvailableDriver from '../Comps/AvailableDriver';
 import stylesFun from './styles';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const ASPECT_RATIO = width / height;
 const LATITUDE_DELTA = 0.0922;
@@ -201,6 +201,7 @@ function ChooseVechile({ navigation, route }) {
         uID,
     } = state;
 
+    const insets = useSafeAreaInsets();
     const updateState = (data) => setState((state) => ({ ...state, ...data }));
     const [updateSeatNO, setUpdateSeatNo] = useState(1);
     const [showFinalUpdatedSeatNo, setShowFinalUpdatedSeatNo] = useState(1);
@@ -1647,7 +1648,7 @@ function ChooseVechile({ navigation, route }) {
             {!!(showCarModal && cabBookingType != 'bidRide') && (
                 <View
                     style={{
-                        marginHorizontal: moderateScale(16),
+                        // marginHorizontal: moderateScale(16),
                         flexDirection: 'row',
                         marginTop: moderateScaleVertical(36)
                     }}>
@@ -2045,7 +2046,7 @@ function ChooseVechile({ navigation, route }) {
                         alignItems: 'center',
                         gap: moderateScale(10),
                         position: 'absolute',
-                        bottom: 0,
+                        bottom: insets.bottom + moderateScale(16),
                         left: 0,
                         right: 0,
                         backgroundColor: isDarkMode ? MyDarkTheme.colors.background : colors.white,

@@ -38,6 +38,7 @@ const CustomBottomTabBarFive = ({
         backgroundColor: isDarkMode
           ? MyDarkTheme.colors.background
           : colors.backgroundGrey,
+      paddingBottom: insets.bottom,
       }}>
       <View style={[styles.tabBarStyle]}>
         {state.routes.map((route, index) => {
